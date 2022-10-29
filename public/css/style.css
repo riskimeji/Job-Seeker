@@ -1,0 +1,292 @@
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    /* height: 100vh; */
+    background-color: #f5f5f5;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    letter-spacing: 2px;
+    font-size: 48px;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: #333333;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+    background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+    color: white;
+}
+
+.logo {
+    width: 50px;
+    fill: white;
+    padding-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.inner-header {
+    height: 65vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.flex {
+    /*Flexbox for containers*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    margin-bottom: -7px;
+    /*Fix for safari gap*/
+    min-height: 100px;
+    max-height: 150px;
+}
+
+.content {
+    position: relative;
+    height: 20vh;
+    text-align: center;
+    background-color: white;
+}
+
+
+/* Animation */
+
+.parallax>use {
+    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+.parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
+
+/*Shrinking for mobile*/
+
+@media (max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
+    .content {
+        height: 30vh;
+    }
+    h1 {
+        font-size: 24px;
+    }
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+#selamatdatang {
+    font-family: 'Nunito Bold', sans-serif;
+}
+
+nav {
+    background-color: #3D42A4;
+}
+
+.nav-link {
+    color: white;
+}
+
+.active {
+    color: #FFC056 !important;
+}
+
+.nav-link:hover {
+    color: #FFC056;
+}
+
+.welcome-title {
+    color: #FFC056;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.blue-style {
+    color: #3D42A4;
+    font-weight: bold;
+}
+
+@media (max-device-width: 800px) {
+    .centerMobileOnly {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+.wajib {
+    font-weight: bold;
+    color: red;
+}
+
+.btn-free {
+    background: #3D42A4;
+    color: white;
+}
+
+.btn-free:hover {
+    background-color: rgb(150, 137, 192);
+    color: rgba(255, 255, 255, 0.527);
+}
+
+.imgBox,
+.textBox {
+    float: left;
+    box-sizing: border-box;
+}
+
+.textBox {
+    /* height: 500px; */
+    width: 550px;
+    margin-left: 30px;
+    color: black;
+    text-align: left;
+    padding-top: 20px;
+}
+
+.box {
+    transition: box-shadow .3s;
+    width: 350px;
+    height: 500px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: #333333;
+}
+
+.box:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+}
+
+.cardind {
+    background-color: #3D42A4;
+    opacity: 0.6;
+    transition: transform .9s;
+}
+
+.cardind:hover {
+    transition: .9s;
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.05);
+    opacity: 1;
+    box-shadow: #333333;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.test {
+    transition: .5s;
+}
+
+.test:hover {
+    background-color: #fffffff1;
+    transition: .9s;
+}
+
+.lokercard {
+    width: 310px;
+    height: 350px;
+    border-radius: 0px;
+    background: white;
+}
