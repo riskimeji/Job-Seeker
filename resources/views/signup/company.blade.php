@@ -17,7 +17,7 @@
                         <label for="namadepan" class="blue-style">Nama Perusahaan </label><label for="wajib"
                             class="wajib">
                             *</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                        <input type="text" name="first_name" class="form-control @error('name') is-invalid @enderror"
                             style="border-radius: 0;" value="{{ old('name') }}" required>
                         @error('message')
                             {{ $message }}

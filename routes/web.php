@@ -5,6 +5,8 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\UserEmployeeController;
 use App\Http\Controllers\UserCompanyController;
+use App\Http\Controllers\Controller;
+
 
 
 /*
@@ -30,9 +32,9 @@ Route::get('signup', function () {
 Route::get('signup/company', function () {
     return view('signup.company');
 });
-Route::get('signin', function(){
-    return view('signin.index');
-});
+// Route::get('signin', function(){
+//     return view('signin.index');
+// });
 Route::get('test', function(){
     return view('card');
 });
@@ -43,6 +45,35 @@ Route::get('contact', function(){
 Route::get('try', function(){
     return view('test');
 });
+
+Route::get('dashboard/company', function(){
+    return view('company.index');
+});
+
+Route::middleware(['auth', 'role:ADMIN'])->group(function () {
+    Route::get('/dashboard/admin', [UserAdminController::class, 'dashboardadmin'])->name('ADMIN');
+
+    //semua route dalam grup ini hanya bisa diakses oleh ADMIN
+});
+
+Route::middleware(['auth', 'role:EMPLOYEE'])->group(function () {
+    Route::get('/dashboard/member', [UserEmployeeController::class, 'dashboardmember'])->name('EMPLOYEE');
+
+    //semua route dalam grup ini hanya bisa diakses oleh EMPLOYEE
+});
+
+
+Route::middleware(['auth', 'role:COMPANY'])->group(function () {
+    Route::get('/dashboard/company', [UserCompanyController::class, 'dashboardcompany'])->name('COMPANY');
+
+    //semua route dalam grup ini hanya bisa diakses oleh COMPANY
+});
+
+
+
+Route::get('signin', [Controller::class, 'login'])->name('login')->middleware('guest');
+Route::post('/logout', [UserAdminController::class,'logout']);
+
 Route::resource('signup/company', UserCompanyController::class);
 Route::get('signin/company', [UserCompanyController::class, 'login'])->name('login')->middleware('guest');
 Route::post('signin/company', [UserCompanyController::class, 'authenticate']);
@@ -52,5 +83,5 @@ Route::get('signin/employee', [UserEmployeeController::class, 'login'])->name('l
 Route::post('signin/employee', [UserEmployeeController::class, 'authenticate']);
 
 Route::resource('admin/regist', UserAdminController::class);
-Route::get('admin/login', [UserAdminController::class, 'login'])->name('login')->middleware('guest');
-Route::post('admin/login', [UserAdminController::class, 'authenticate']);
+Route::get('admin/masuk', [UserAdminController::class, 'login'])->name('login')->middleware('guest');
+Route::post('admin/masuk', [UserAdminController::class, 'authenticate']);

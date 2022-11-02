@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserAdmin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -20,19 +21,27 @@ class UserAdminController extends Controller
         return view('signup.admin');
     }
     public function login(){
-        return view('signin.admin');
+        return view('admins.login');
+    }
+    public function dashboardadmin($role){
+        if(Auth::role() != 'ADMIN'){
+            return view('/logout');
+        }
+        return view('admins.dashboard.index');
     }
     public function authenticate(Request $request){
         $cridentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required']
+            'password' => ['required'],
+
         ]);
         if (Auth::attempt($cridentials)){
-            $request->session()->generate();
+            $request->session()->regenerate();
             return redirect()->intended('dashboard/admin');
         }
         return back()->with('errorLogin','Email or Password wrong');
     }
+
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
@@ -48,7 +57,7 @@ class UserAdminController extends Controller
     public function create()
     {
         return view('signup.admin', [
-            'useradmins'=>UserAdmin::all()
+            'users'=>User::all()
         ]);
     }
 
@@ -61,7 +70,7 @@ class UserAdminController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' =>'required',
+            'first_name' =>'required',
             'email' =>'required|unique:user_admins,email,except,id',
             'phone_number'=>'required|max:13|min:12|unique:user_admins,phone_number,except,id',
             'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
@@ -69,9 +78,9 @@ class UserAdminController extends Controller
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);
-        $validatedData['status'] = 'N';
-        UserAdmin::create($validatedData);
-        return redirect('admin/login')->with('message','Sukses mendaftar, silahkan log in');
+        $validatedData['role'] = 'ADMIN';
+        User::create($validatedData);
+        return redirect('admin/masuk')->with('message','Sukses mendaftar, silahkan log in');
     }
 
     /**

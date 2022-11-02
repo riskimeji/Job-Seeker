@@ -14,9 +14,10 @@
                 <div class="row ms-5 me-5 mt-4">
                     <div class="col">
                         <label for="nama" class="blue-style">Nama</label><label class="wajib">*</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            value="{{ old('name') }}" style="border-radius: 0;" required>
-                        @error('name')
+                        <input type="text" name="first_name"
+                            class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name') }}"
+                            style="border-radius: 0;" required>
+                        @error('first_name')
                             {{ $message }}
                         @enderror
                     </div>

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserCompany;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserCompanyController extends Controller
 {
@@ -20,13 +23,16 @@ class UserCompanyController extends Controller
     public function login(){
         return view('signin.company');
     }
+    public function dashboardcompany(){
+        return view('company.index');
+    }
     public function authenticate(Request $request){
         $cridentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
         if (Auth::attempt($cridentials)){
-            $request->session()->generate();
+            $request->session()->regenerate();
             return redirect()->intended('dashboard/company');
         }
         return back()->with('errorLogin','Email or Password wrong');
@@ -47,7 +53,7 @@ class UserCompanyController extends Controller
     public function create()
     {
         return view('signup.company',[
-            'usercompanys'=>UserCompany::all()
+            'users'=>User::all()
         ]);
     }
 
@@ -60,7 +66,7 @@ class UserCompanyController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name'=> 'required|unique:user_companies,name,except,id',
+            'first_name'=> 'required|unique:user_companies,name,except,id',
             'email'=>'required|unique:user_companies,email,except,id',
             'phone_number'=>'required|unique:user_companies,phone_number,except,id',
             'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
@@ -69,7 +75,8 @@ class UserCompanyController extends Controller
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);
-        UserCompany::create($validatedData);
+        $validatedData['role'] = 'COMPANY';
+        User::create($validatedData);
         return redirect('signin/company')->with('message','Sukses mendaftar, silahkan log in');
 
     }

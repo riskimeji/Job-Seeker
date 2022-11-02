@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserEmployee;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -22,13 +23,16 @@ class UserEmployeeController extends Controller
     public function login(){
         return view('signin.employee');
     }
+    public function dashboardmember(){
+        return view('members.index');
+    }
     public function authenticate(Request $request){
         $cridentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
         if (Auth::attempt($cridentials)){
-            $request->session()->generate();
+            $request->session()->regenerate();
             return redirect()->intended('dashboard/member');
         }
         return back()->with('errorLogin','Email or Password wrong');
@@ -47,7 +51,7 @@ class UserEmployeeController extends Controller
     public function create()
     {
         return view('signup.employee',[
-            'useremployees'=> UserEmloyee::all()
+            'users'=> User::all()
         ]);
     }
 
@@ -71,8 +75,9 @@ class UserEmployeeController extends Controller
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);
+        $validatedData['role'] = 'EMPLOYEE';
         // dd($validatedData);
-        UserEmployee::create($validatedData);
+        User::create($validatedData);
         return redirect('signin/employee')->with('message','Sukses mendaftar, silahkan log in');
     }
 

@@ -27,24 +27,30 @@
                         <a class="nav-link {{ Request::is('contact') ? 'active' : '' }} me-3"
                             href="{{ url('contact') }}">Contact</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle me-3" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Login
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-light">
-                            <li><a class="dropdown-item" href="{{ url('signin/employee') }}">Employee</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('signin/company') }}">Company</a></li>
+                    @auth
+                    @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle me-3" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Login
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-light">
+                                <li><a class="dropdown-item" href="{{ url('signin/employee') }}">Employee</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url('signin/company') }}">Company</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endauth
 
-                        </ul>
                 </ul>
-                <ul class="navbar-nav mb-2 mb-md-0">
+                <ul class="navbar-nav">
                     @auth
                         <li class="nav-item">
-                            <form action="/logout" method="post">
+                            <form action="/logout" method="post" style="margin: 0px;">
                                 @csrf
-                                <button class="btn btn-primary" type="submit">Logout</button>
+                                <button class="btn btn-light text-black" style="width: 100px; border-radius:50px;"
+                                    type="submit">Logout</button>
                             </form>
                         </li>
                     @else
@@ -52,19 +58,6 @@
                             <a class="nav-link btn btn-light text-black" style="width: 100px; border-radius:50px;"
                                 aria-current="page" href="/signup">Sign Up</a>
                         </li>
-                        <!-- Example single danger button -->
-                        {{-- <li class="nav-item">
-                            <div class="btn-group">
-                                <button type="button" class="nav-link btn btn-light text-black" data-bs-toggle="dropdown"
-                                    aria-expanded="false" style="width: 100px; border-radius:50px;">
-                                    Log in as
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Company</a></li>
-                                    <li><a class="dropdown-item" href="#">Employees</a></li>
-                                </ul>
-                            </div>
-                        </li> --}}
                     @endauth
                 </ul>
             </div>

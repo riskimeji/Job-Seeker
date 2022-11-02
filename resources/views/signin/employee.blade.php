@@ -4,7 +4,7 @@
         <h3 for="" class="welcome-title text-center centerMobileOnly">Selamat Datang di JOB SEEKER</h3>
         <h3 class="blue-style text-center mt-4">Masuk Sebagai Pelamar</h3>
         <div class="container mt-4" style="width: 500px;">
-            <form>
+            <form method="POST" action="{{ asset('signin/employee') }}">
                 @csrf
                 @if (session()->has('errorLogin'))
                     <div class="alert alert-danger" role="alert">
@@ -19,13 +19,14 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label blue-style">Email</label><label for=""
                         style="color: red; font-weight: bold;">*</label>
-                    <input type="email" class="form-control" style="border-radius: 0px;" id="exampleInputEmail1"
-                        aria-describedby="emailHelp">
+                    <input type="email" class="form-control" name="email" style="border-radius: 0px;"
+                        id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label blue-style">Kata Sandi</label><label for=""
                         style="color: red; font-weight: bold;">*</label>
-                    <input type="password" class="form-control" style="border-radius: 0px;" id="exampleInputPassword1">
+                    <input type="password" name="password" class="form-control" style="border-radius: 0px;"
+                        id="exampleInputPassword1">
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
