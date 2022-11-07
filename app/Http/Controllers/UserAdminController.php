@@ -23,11 +23,10 @@ class UserAdminController extends Controller
     public function login(){
         return view('admins.login');
     }
-    public function dashboardadmin($role){
-        if(Auth::role() != 'ADMIN'){
-            return view('/logout');
-        }
-        return view('admins.dashboard.index');
+    public function dashboardadmin(){
+        return view('admins.index',[
+            'users'=>User::first()->paginate(7)
+        ]);
     }
     public function authenticate(Request $request){
         $cridentials = $request->validate([

@@ -20,8 +20,7 @@ class Role
     {
         if($request->user()->role == $role){
             return $next($request);
-        }
-        if(Auth::user()->role == 'ADMIN'){
+        }if(Auth::user()->role == 'ADMIN'){
             return Redirect::to('dashboard/admin');
         }elseif(Auth::user()->role == 'EMPLOYEE'){
             return Redirect::to('dashboard/member');

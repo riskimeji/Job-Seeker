@@ -10,7 +10,7 @@
                 <li class="menu-title" data-key="t-menu">Menu</li>
 
                 <li>
-                    <a href="index">
+                    <a href="{{ asset('dashboard/admin') }}">
                         <i data-feather="home"></i>
                         <span class="badge rounded-pill bg-soft-success text-success float-end">9+</span>
                         <span data-key="t-dashboard">Dashboard</span>
@@ -18,51 +18,40 @@
                 </li>
 
                 <li class="menu-title" data-key="t-apps">Apps</li>
-
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="users"></i>
-                        <span data-key="t-ecommerce">Users</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ecommerce-products" key="t-products">@lang('translation.Products')</a></li>
-                        <li><a href="ecommerce-product-detail" data-key="t-product-detail">@lang('translation.Product_Detail')</a></li>
-                        <li><a href="ecommerce-orders" data-key="t-orders">@lang('translation.Orders')</a></li>
-                        <li><a href="ecommerce-customers" data-key="t-customers">@lang('translation.Customers')</a></li>
-                        <li><a href="ecommerce-cart" data-key="t-cart">@lang('translation.Cart')</a></li>
-                        <li><a href="ecommerce-checkout" data-key="t-checkout">@lang('translation.Checkout')</a></li>
-                        <li><a href="ecommerce-shops" data-key="t-shops">@lang('translation.Shops')</a></li>
-                        <li><a href="ecommerce-add-product" data-key="t-add-product">@lang('translation.Add_Product')</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="apps-chat">
+                    <a href="{{ asset('dashboard/user') }}">
                         <i data-feather="user"></i>
                         <span data-key="t-chat">User</span>
                     </a>
                 </li>
                 <li>
                     <a href="apps-chat">
-                        <i data-feather="archive"></i>
-                        <span data-key="t-chat">Lowongan</span>
+                        <i data-feather="mail"></i>
+                        <span data-key="t-chat">Lamaran</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="mail"></i>
-                        <span data-key="t-email">Lamaran</span>
+                        <i data-feather="archive"></i>
+                        <span data-key="t-email">Lowongan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="apps-email-inbox" data-key="t-inbox">@lang('translation.Inbox')</a></li>
-                        <li><a href="apps-email-read" data-key="t-read-email">@lang('translation.Read_Email')</a></li>
+                        <li><a href="apps-email-inbox" data-key="t-inbox">@lang('Data Lownogan')</a></li>
+                        <li><a href="apps-email-read" data-key="t-read-email">@lang('Tambah Lowongan')</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="apps-calendar">
+                    <a href="{{ asset('dashboard/category') }}">
                         <i data-feather="list"></i>
-                        <span data-key="t-calendar">Kategory Job</span>
+                        <span data-key="t-calendar">Category Job</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ asset('dashboard/industry') }}">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-calendar">Industry Job</span>
                     </a>
                 </li>
 
@@ -72,22 +61,18 @@
                         <span data-key="t-contacts">Alamat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="apps-contacts-grid" data-key="t-user-grid">@lang('translation.User_Grid')</a></li>
-                        <li><a href="apps-contacts-list" data-key="t-user-list">@lang('translation.User_List')</a></li>
-                        <li><a href="apps-contacts-profile" data-key="t-profile">@lang('translation.Profile')</a></li>
+                        <li><a href="apps-contacts-grid" data-key="t-user-grid">@lang('Provinsi')</a></li>
+                        <li><a href="apps-contacts-list" data-key="t-user-list">@lang('Kota')</a></li>
+                        <li><a href="apps-contacts-list" data-key="t-user-list">@lang('Kecamatan')</a></li>
+                        <li><a href="apps-contacts-profile" data-key="t-profile">@lang('Disctrict')</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow">
+                    <a href="apps-chat">
                         <i data-feather="trello"></i>
                         <span data-key="t-tasks">Pendidikan</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="tasks-list" key="t-task-list">@lang('translation.Task_List')</a></li>
-                        <li><a href="tasks-kanban" key="t-kanban-board">@lang('translation.Kanban_Board')</a></li>
-                        <li><a href="tasks-create" key="t-create-task">@lang('translation.Create_Task')</a></li>
-                    </ul>
                 </li>
 
                 <li class="menu-title" data-key="t-pages">Pages</li>

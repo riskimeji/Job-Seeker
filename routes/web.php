@@ -5,6 +5,13 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\UserEmployeeController;
 use App\Http\Controllers\UserCompanyController;
+use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\CategoryDashboardController;
+use App\Http\Controllers\IndustryDashboardController;
+use App\Http\Controllers\ProvinceDashboardController;
+use App\Http\Controllers\CityDashboardController;
+use App\Http\Controllers\VillageDashboardController;
+use App\Http\Controllers\DistrictDashboardController;
 use App\Http\Controllers\Controller;
 
 
@@ -32,9 +39,7 @@ Route::get('signup', function () {
 Route::get('signup/company', function () {
     return view('signup.company');
 });
-// Route::get('signin', function(){
-//     return view('signin.index');
-// });
+
 Route::get('test', function(){
     return view('card');
 });
@@ -51,20 +56,27 @@ Route::get('dashboard/company', function(){
 });
 
 Route::middleware(['auth', 'role:ADMIN'])->group(function () {
-    Route::get('/dashboard/admin', [UserAdminController::class, 'dashboardadmin'])->name('ADMIN');
+    Route::get('dashboard/admin', [UserAdminController::class, 'dashboardadmin'])->name('ADMIN')->middleware('isAdmin');
+    Route::resource('/dashboard/user', UserDashboardController::class);
+    Route::resource('/dashboard/category', CategoryDashboardController::class);
+    Route::resource('/dashboard/industry', IndustryDashboardController::class);
+    Route::resource('/dashboard/province', ProvinceDashboardController::class);
+    Route::resource('/dashboard/city', CityDashboardController::class);
+    Route::resource('/dashboard/village', VillageDashboardController::class);
+    Route::resource('/dashboard/district', DistrictDashboardController::class);
 
     //semua route dalam grup ini hanya bisa diakses oleh ADMIN
 });
 
 Route::middleware(['auth', 'role:EMPLOYEE'])->group(function () {
-    Route::get('/dashboard/member', [UserEmployeeController::class, 'dashboardmember'])->name('EMPLOYEE');
+    Route::get('dashboard/member', [UserEmployeeController::class, 'dashboardmember'])->name('EMPLOYEE');
 
     //semua route dalam grup ini hanya bisa diakses oleh EMPLOYEE
 });
 
 
 Route::middleware(['auth', 'role:COMPANY'])->group(function () {
-    Route::get('/dashboard/company', [UserCompanyController::class, 'dashboardcompany'])->name('COMPANY');
+    Route::get('dashboard/company', [UserCompanyController::class, 'dashboardcompany'])->name('COMPANY');
 
     //semua route dalam grup ini hanya bisa diakses oleh COMPANY
 });
@@ -72,7 +84,7 @@ Route::middleware(['auth', 'role:COMPANY'])->group(function () {
 
 
 Route::get('signin', [Controller::class, 'login'])->name('login')->middleware('guest');
-Route::post('/logout', [UserAdminController::class,'logout']);
+Route::post('logout', [UserAdminController::class,'logout']);
 
 Route::resource('signup/company', UserCompanyController::class);
 Route::get('signin/company', [UserCompanyController::class, 'login'])->name('login')->middleware('guest');

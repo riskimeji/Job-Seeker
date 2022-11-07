@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobCategory;
 use Illuminate\Http\Request;
 
-class JobCategoryController extends Controller
+class ProvinceDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,10 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admins.province.province',[
+            'provinces' => Province::latest()->pagiante(10),
+            'datas' => Province::count()
+        ]);
     }
 
     /**
@@ -41,10 +43,10 @@ class JobCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\JobCategory  $jobCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(JobCategory $jobCategory)
+    public function show($id)
     {
         //
     }
@@ -52,10 +54,10 @@ class JobCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\JobCategory  $jobCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(JobCategory $jobCategory)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +66,10 @@ class JobCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JobCategory  $jobCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobCategory $jobCategory)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +77,10 @@ class JobCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\JobCategory  $jobCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobCategory $jobCategory)
+    public function destroy($id)
     {
         //
     }
