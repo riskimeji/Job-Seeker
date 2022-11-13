@@ -64,12 +64,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($provinces as $category)
+                                @foreach ($provinces as $province)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
-
-                                            <a href="#" class="text-body">{{ $category->name }}</a>
+                                            <a href="#" class="text-body">{{ $province->name }}</a>
+                                            <?php
+                                            ?>
                                         </td>
                                         <td>
                                             <div class="dropdown">
@@ -80,11 +81,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li><a class="dropdown-item"
-                                                            href="/dashboard/category/{{ $category->id }}/edit">Edit</a>
+                                                            href="/dashboard/province/{{ $province->id }}/edit">Edit</a>
                                                     </li>
                                                     {{-- <li><a class="dropdown-item" href="#">Delete</a></li> --}}
                                                     <li>
-                                                        <form action="/dashboard/category/{{ $category->id }}"
+                                                        <form action="/dashboard/province/{{ $province->id }}"
                                                             method="POST" class="d-inline">
                                                             @method('DELETE')
                                                             @csrf
@@ -113,7 +114,7 @@
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script> --}}
+    <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/datatable-pages.init.js') }}"></script>
 @endsection

@@ -20,7 +20,7 @@ class UserAdminController extends Controller
     {
         return view('signup.admin');
     }
-    public function login(){
+    public function masuk(){
         return view('admins.login');
     }
     public function dashboardadmin(){
@@ -38,7 +38,7 @@ class UserAdminController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('dashboard/admin');
         }
-        return back()->with('errorLogin','Email or Password wrong');
+        return back()->with('errorLogin','Email or Password incorrect');
     }
 
     public function logout(Request $request){
@@ -97,11 +97,12 @@ class UserAdminController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\UserAdmin  $userAdmin
+     * @param  \App\Models\User  $user
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserAdmin $userAdmin)
+    public function edit( Request $request, User $user)
     {
-        //
     }
 
     /**

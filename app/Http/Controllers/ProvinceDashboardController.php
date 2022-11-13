@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Village;
+
 
 use Illuminate\Http\Request;
 
@@ -14,9 +19,9 @@ class ProvinceDashboardController extends Controller
     public function index()
     {
         return view('admins.province.province',[
-            'provinces' => Province::latest()->pagiante(10),
+            'provinces' => Province::latest()->paginate(34),
             'datas' => Province::count()
-        ]);
+                ]);
     }
 
     /**

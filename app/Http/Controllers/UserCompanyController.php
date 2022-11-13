@@ -35,7 +35,7 @@ class UserCompanyController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('dashboard/company');
         }
-        return back()->with('errorLogin','Email or Password wrong');
+        return back()->with('errorLogin','Email or Password incorrect');
     }
     public function logout(Request $request){
         Auth::logout();
@@ -66,16 +66,18 @@ class UserCompanyController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'first_name'=> 'required|unique:user_companies,name,except,id',
-            'email'=>'required|unique:user_companies,email,except,id',
-            'phone_number'=>'required|unique:user_companies,phone_number,except,id',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:user_employees,email,except,id',
+            'phone_number' => 'required|min:12|max:13|unique:user_employees,phone_number,except,id',
+            'gender' => 'required|in:P,L',
+            'date_birth' => 'required',
             'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation'=>'min:6'
-
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);
-        $validatedData['role'] = 'COMPANY';
+        $validatedData['role'] = 'EMPLOYEE';
         User::create($validatedData);
         return redirect('signin/company')->with('message','Sukses mendaftar, silahkan log in');
 

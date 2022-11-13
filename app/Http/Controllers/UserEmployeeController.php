@@ -35,7 +35,7 @@ class UserEmployeeController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('dashboard/member');
         }
-        return back()->with('errorLogin','Email or Password wrong');
+        return back()->with('errorLogin','Email or Password incorrect');
     }
     public function logout(Request $request){
         Auth::logout();
@@ -78,7 +78,17 @@ class UserEmployeeController extends Controller
         $validatedData['role'] = 'EMPLOYEE';
         // dd($validatedData);
         User::create($validatedData);
-        return redirect('signin/employee')->with('message','Sukses mendaftar, silahkan log in');
+        $cridentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+
+        ]);
+        if (Auth::attempt($cridentials)){
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard/personal-information/');
+        }
+
+        // return redirect('signin/employee')->with('message','Sukses mendaftar, silahkan log in');
     }
 
     /**
@@ -100,7 +110,6 @@ class UserEmployeeController extends Controller
      */
     public function edit(UserEmployee $userEmployee)
     {
-        //
     }
 
     /**

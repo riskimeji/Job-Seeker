@@ -28,6 +28,10 @@
                             href="{{ url('contact') }}">Contact</a>
                     </li>
                     @auth
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('dashboard/member') ? 'active' : '' }} me-3"
+                                href="{{ url('dashboard/member') }}">Dashboard</a>
+                        </li>
                     @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle me-3" href="#" role="button" data-bs-toggle="dropdown"

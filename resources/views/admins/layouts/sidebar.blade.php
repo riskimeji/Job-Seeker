@@ -54,17 +54,29 @@
                         <span data-key="t-calendar">Industry Job</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{ asset('dashboard/jenjang-pendidikan') }}">
+                        <i data-feather="bar-chart-2"></i>
+                        <span data-key="t-calendar">Jenjang Pendidikan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ asset('dashboard/jurusan-pendidikan') }}">
+                        <i data-feather="globe"></i>
+                        <span data-key="t-calendar">Jurusan Pendidikan</span>
+                    </a>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="map-pin"></i>
                         <span data-key="t-contacts">Alamat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="apps-contacts-grid" data-key="t-user-grid">@lang('Provinsi')</a></li>
-                        <li><a href="apps-contacts-list" data-key="t-user-list">@lang('Kota')</a></li>
-                        <li><a href="apps-contacts-list" data-key="t-user-list">@lang('Kecamatan')</a></li>
-                        <li><a href="apps-contacts-profile" data-key="t-profile">@lang('Disctrict')</a></li>
+                        <li><a href="{{ asset('dashboard/province') }}" data-key="t-user-grid">@lang('Province')</a>
+                        </li>
+                        <li><a href="{{ asset('dashboard/city') }}" data-key="t-user-list">@lang('City')</a></li>
+                        <li><a href="{{ asset('dashboard/district') }}" data-key="t-profile">@lang('Disctrict')</a></li>
+                        <li><a href="{{ asset('dashboard/village') }}" data-key="t-user-list">@lang('Village')</a></li>
                     </ul>
                 </li>
 

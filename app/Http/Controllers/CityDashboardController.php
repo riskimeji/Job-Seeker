@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Village;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +17,10 @@ class CityDashboardController extends Controller
      */
     public function index()
     {
-        //
+        return view('admins.city.city',[
+            'citys' => City::latest()->paginate(514),
+            'datas' => City::count()
+        ]);
     }
 
     /**

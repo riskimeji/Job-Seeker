@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Village;
+
 use Illuminate\Http\Request;
 
 class DistrictDashboardController extends Controller
@@ -13,7 +18,10 @@ class DistrictDashboardController extends Controller
      */
     public function index()
     {
-        //
+        return view('admins.district.district',[
+            'districts' => District::latest()->paginate(10),
+            'datas' => District::count()
+        ]);
     }
 
     /**
