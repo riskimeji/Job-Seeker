@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserAdmin;
 use App\Models\User;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,9 @@ class UserAdminController extends Controller
     }
     public function dashboardadmin(){
         return view('admins.index',[
-            'users'=>User::first()->paginate(7)
+            'users'=>User::first()->paginate(7),
+            'datas'=>User::count(),
+            'countindustry'=>Industry::count()
         ]);
     }
     public function authenticate(Request $request){
@@ -70,10 +73,11 @@ class UserAdminController extends Controller
     {
         $validatedData = $request->validate([
             'first_name' =>'required',
-            'email' =>'required|unique:user_admins,email,except,id',
+            'email' =>'required|unique:users,email,except,id',
             'phone_number'=>'required|max:13|min:12|unique:user_admins,phone_number,except,id',
             'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation'=>'min:6'
+            'password_confirmation'=>'min:6',
+            'username'=>'required|unique:users,username,expect,id|max:10'
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);

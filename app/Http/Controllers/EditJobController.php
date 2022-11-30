@@ -15,12 +15,14 @@ class EditJobController extends Controller
      */
     public function index()
     {
-        $biodatas = BioEmployee::with('category')->where('user_id',  auth()->user()->id)->get();
-        return view('members.update.jobexperience',[
-            'employees'=> BioEmployee::all(),
-            'biodatas' => $biodatas,
-            'categorys' => Category::all()
-                ]);
+        // $biodatas = BioEmployee::with('category')->where('user_id',  auth()->user()->id)->get();
+        // return view('members.update.jobexperience',[
+        //     'employees'=> BioEmployee::all(),
+        //     'biodatas' => $biodatas,
+        //     'categorys' => Category::all()
+        //         ]);
+                return redirect('/');
+
     }
 
     /**
@@ -88,8 +90,9 @@ class EditJobController extends Controller
             'category_id'=>'required',
         ]);
         BioEmployee::where('id',$id)->update($validatedData);
-        return redirect('dashboard/profile')->with('message','Sukses Update Data');
-    }
+        $username = Auth::user()->username;
+        return redirect("dashboard/profile/$username/edit")->with('message','Sukses Update Data');
+        }
 
     /**
      * Remove the specified resource from storage.

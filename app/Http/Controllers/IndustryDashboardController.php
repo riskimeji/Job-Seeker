@@ -15,7 +15,7 @@ class IndustryDashboardController extends Controller
     public function index()
     {
         return view('admins.industry.index',[
-            'industrys' => Industry::latest()->paginate(10),
+            'industrys' => Industry::latest()->paginate(19),
             'datas' => Industry::count()
         ]);
     }
@@ -83,7 +83,7 @@ class IndustryDashboardController extends Controller
         $validatedData = $request->validate([
             'name' =>'required|unique:industries,name,except,id'
         ]);
-        Industry::where('id',$category->id)->update($validatedData);
+        Industry::where('id',$industry->id)->update($validatedData);
         return redirect('dashboard/industry')->with('message','Success Update Data');
     }
 

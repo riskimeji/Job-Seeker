@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div>
-                                <form method="POST" action="/dashboard/profile/{{ Auth::user()->id }}">
+                                <form method="POST" action="/dashboard/account/{{ Auth::user()->id }}">
                                     @method('PUT')
                                     @csrf
                                     <div class="row">

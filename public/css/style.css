@@ -290,3 +290,7 @@ nav {
     border-radius: 0px;
     background: white;
 }
+
+.map-show:hover {
+    background-image: url('../assets/images/map_hover.png');
+}

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('username')->unique()->nullable();
             $table->string('email');
             $table->string('password');
             $table->string('password_confirmation');
@@ -24,6 +25,8 @@ return new class extends Migration
             $table->char('gender',1)->nullable();
             $table->date('date_birth')->nullable();
             $table->string('profile')->nullable();
+            $table->string('sampul')->nullable();
+            $table->string('bio',30)->nullable();
             $table->string('role')->nullable();
             $table->timestamps();
         });

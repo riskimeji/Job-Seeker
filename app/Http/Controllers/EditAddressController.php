@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BioEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\Province;
@@ -19,13 +20,14 @@ class EditAddressController extends Controller
      */
     public function index()
     {
-        $provinces = Province::pluck('name', 'id');
-        $biodatas = BioEmployee::with('category')->where('user_id',  auth()->user()->id)->get();
-        return view('members.update.education',[
-            'employees'=> BioEmployee::all(),
-            'biodatas' => $biodatas,
-            'provinces' => $provinces
-        ]);
+        // $provinces = Province::pluck('name', 'id');
+        // $biodatas = BioEmployee::with('category')->where('user_id',  auth()->user()->id)->get();
+        // return view('members.update.education',[
+        //     'employees'=> BioEmployee::all(),
+        //     'biodatas' => $biodatas,
+        //     'provinces' => $provinces
+        // ]);
+    return redirect('/');
     }
 
     /**
@@ -98,8 +100,9 @@ class EditAddressController extends Controller
         ]);
         $validatedData['user_id'] = auth()->user()->id;
         BioEmployee::where('id',$id)->update($validatedData);
-        return redirect('dashboard/profile')->with('message','Sukses Update Data');
-    }
+        $username = Auth::user()->username;
+        return redirect("dashboard/profile/$username/edit")->with('message','Sukses Update Data');
+        }
 
     /**
      * Remove the specified resource from storage.

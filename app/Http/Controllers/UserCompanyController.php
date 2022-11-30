@@ -20,6 +20,9 @@ class UserCompanyController extends Controller
     {
         return view('signup.company');
     }
+    public function profile(){
+        return view('company.profile');
+    }
     public function login(){
         return view('signin.company');
     }
@@ -67,17 +70,15 @@ class UserCompanyController extends Controller
     {
         $validatedData = $request->validate([
             'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:user_employees,email,except,id',
-            'phone_number' => 'required|min:12|max:13|unique:user_employees,phone_number,except,id',
-            'gender' => 'required|in:P,L',
-            'date_birth' => 'required',
+            'email' => 'required|unique:users,email,except,id',
+            'phone_number' => 'required|min:12|max:13|unique:users,phone_number,except,id',
             'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation'=>'min:6'
+            'password_confirmation'=>'min:6',
+            'username'=>'required|unique:users,username,expect,id|max:15'
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);
-        $validatedData['role'] = 'EMPLOYEE';
+        $validatedData['role'] = 'COMPANY';
         User::create($validatedData);
         return redirect('signin/company')->with('message','Sukses mendaftar, silahkan log in');
 

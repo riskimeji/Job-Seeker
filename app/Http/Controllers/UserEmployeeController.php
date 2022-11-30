@@ -66,12 +66,13 @@ class UserEmployeeController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|unique:user_employees,email,except,id',
-            'phone_number' => 'required|min:12|max:13|unique:user_employees,phone_number,except,id',
+            'email' => 'required|unique:users,email,except,id',
+            'phone_number' => 'required|min:12|max:13|unique:users,phone_number,except,id',
             'gender' => 'required|in:P,L',
             'date_birth' => 'required',
             'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation'=>'min:6'
+            'password_confirmation'=>'min:6',
+            'username'=>'required|unique:users,username,expect,id|max:10'
         ]);
         $validatedData['password'] =  Hash::make($request->password);
         $validatedData['password_confirmation'] = Hash::make($request->password);
@@ -88,7 +89,6 @@ class UserEmployeeController extends Controller
             return redirect()->intended('dashboard/personal-information/');
         }
 
-        // return redirect('signin/employee')->with('message','Sukses mendaftar, silahkan log in');
     }
 
     /**

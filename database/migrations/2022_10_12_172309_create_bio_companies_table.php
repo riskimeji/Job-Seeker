@@ -15,12 +15,21 @@ return new class extends Migration
     {
         Schema::create('bio_companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_company_id');
-            $table->string('name');
-            $table->string('email');
-            $table->char('zip_code');
-            $table->string('address');
+            $table->foreignId('user_id');
+            $table->foreignId('province_id');
+            $table->foreignId('city_id');
+            $table->string('alamat');
+            $table->char('phone_perusahaan');
+            $table->string('email_perusahaan');
+            $table->string('google_maps');
+            $table->text('tentang');
+            $table->foreignId('hari_kerja_id');
+            $table->string('jam_kerja_mulai');
+            $table->string('jam_kerja_berakhir');
+            $table->string('website');
+            $table->foreignId('industry_id');
             $table->string('profile')->nullable();
+            $table->string('sampul')->nullable();
             $table->timestamps();
         });
     }

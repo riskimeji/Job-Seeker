@@ -35,6 +35,16 @@
                 </div>
                 <div class="row ms-5 me-5 mt-4">
                     <div class="col">
+                        <label for="email" class="blue-style">Username</label><label class="wajib">*</label>
+                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
+                            style="border-radius: 0;" value="{{ old('username') }}" required>
+                        @error('username')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+                <div class="row ms-5 me-5 mt-4">
+                    <div class="col">
                         <label for="email" class="blue-style">Email</label><label class="wajib">*</label>
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                             style="border-radius: 0;" value="{{ old('email') }}" required>

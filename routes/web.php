@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\UserEmployeeController;
 use App\Http\Controllers\UserCompanyController;
 use App\Http\Controllers\BioEmployeeController;
+use App\Http\Controllers\BioCompanyController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\EditJobController;
 use App\Http\Controllers\EditEducationController;
@@ -20,6 +21,11 @@ use App\Http\Controllers\JenjangPendidikanController;
 use App\Http\Controllers\DistrictDashboardController;
 use App\Http\Controllers\JurusanPendidikanController;
 use App\Http\Controllers\PersonalInfoController;
+use App\Http\Controllers\HariKerjaController;
+use App\Http\Controllers\JamKerjaController;
+use App\Http\Controllers\LowonganController;
+use App\Http\Controllers\CompanyInformationController;
+use App\Http\Controllers\EditCompanyInformationController;
 use App\Http\Controllers\Controller;
 
 
@@ -68,31 +74,41 @@ Route::middleware(['auth', 'role:ADMIN'])->group(function () {
     Route::resource('/dashboard/user', UserDashboardController::class);
     Route::resource('/dashboard/category', CategoryDashboardController::class);
     Route::resource('/dashboard/industry', IndustryDashboardController::class);
+    Route::resource('/dashboard/hari-kerja', HariKerjaController::class);
+    Route::resource('/dashboard/jam-kerja', JamKerjaController::class);
     Route::resource('/dashboard/province', ProvinceDashboardController::class);
     Route::resource('/dashboard/city', CityDashboardController::class);
     Route::resource('/dashboard/village', VillageDashboardController::class);
     Route::resource('/dashboard/district', DistrictDashboardController::class);
+    Route::resource('/dashboard/lowongan', LowonganController::class);
     Route::resource('/dashboard/jenjang-pendidikan', JenjangPendidikanController::class);
     Route::resource('/dashboard/jurusan-pendidikan', JurusanPendidikanController::class);
+    // Route::resource('/dashboard/password', EditCompanyInformationController::class);
+
+
 
     //semua route dalam grup ini hanya bisa diakses oleh ADMIN
 });
 
 Route::middleware(['auth', 'role:EMPLOYEE'])->group(function () {
     // Route::get('/dashboard/profile', [BioEmployeeController::class,'profile'])->name('profile');
+    Route::resource('/dashboard/profile', BioEmployeeController::class);
+    // Route::get('/dashboard/profile/{username}/edit', [BioEmployeeController::class,'edit'])->name('edit');
+    // Route::post('/dashboard/profile/{username}', [BioEmployeeController::class,'update'])->name('update');
     Route::get('/dashboard/member', [UserEmployeeController::class, 'dashboardmember'])->name('EMPLOYEE');
     // Route::resource('/dashboard/personal-information', BioEmployeeController::class);
     Route::get('provinces', [BioEmployeeController::class,'provinces'])->name('provinces');
     Route::get('cities', [BioEmployeeController::class,'cities'])->name('cities');
     Route::get('districts', [BioEmployeeController::class,'districts'])->name('districts');
     Route::get('villages', [BioEmployeeController::class,'villages'])->name('villages');
-    Route::resource('/dashboard/profile', AccountController::class);
+    Route::resource('/dashboard/account', AccountController::class);
     Route::resource('/dashboard/edit-education', EditEducationController::class);
     Route::resource('/dashboard/edit-jobexperience', EditJobController::class);
     Route::resource('/dashboard/edit-address', EditAddressController::class);
     Route::resource('/dashboard/personal-information', PersonalInfoController::class);
-
     Route::post('/dashboard/personal-information', [PersonalInfoController::class,'store'])->name('personal-information.store');
+    // Route::resource('/dashboard/password', EditCompanyInformationController::class);
+
 
 
     //semua route dalam grup ini hanya bisa diakses oleh EMPLOYEE
@@ -101,13 +117,20 @@ Route::middleware(['auth', 'role:EMPLOYEE'])->group(function () {
 
 Route::middleware(['auth', 'role:COMPANY'])->group(function () {
     Route::get('dashboard/company', [UserCompanyController::class, 'dashboardcompany'])->name('COMPANY');
+    Route::resource('dashboard/company/profile', BioCompanyController::class);
 
+    Route::resource('/dashboard/company-compleate', CompanyInformationController::class);
+    Route::get('provinces', [CompanyInformationController::class,'provinces'])->name('provinces');
+    Route::get('cities', [CompanyInformationController::class,'cities'])->name('cities');
+    Route::get('districts', [CompanyInformationController::class,'districts'])->name('districts');
+    Route::get('villages', [CompanyInformationController::class,'villages'])->name('villages');
+    Route::post('/dashboard/company-compleate', [CompanyInformationController::class,'store'])->name('company-compleate.store');
 
     //semua route dalam grup ini hanya bisa diakses oleh COMPANY
 });
 
 
-
+Route::resource('/dashboard/password', EditCompanyInformationController::class);
 Route::get('signin', [Controller::class, 'login'])->name('login')->middleware('guest');
 Route::post('logout', [UserAdminController::class,'logout']);
 

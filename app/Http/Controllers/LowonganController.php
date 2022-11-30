@@ -14,7 +14,9 @@ class LowonganController extends Controller
      */
     public function index()
     {
-        //
+        return view('admins.lowongan.lowongan',[
+            'lowongans' =>  Lowongan::latest()->paginate(10)
+        ]);
     }
 
     /**

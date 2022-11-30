@@ -10,6 +10,7 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('img/logo.png') }}">
     <link rel="stylesheet" href="{{ asset('aos/aos.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous"> --}}

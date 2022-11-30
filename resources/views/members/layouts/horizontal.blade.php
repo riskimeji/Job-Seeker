@@ -5,26 +5,26 @@
             <div class="" style="margin-right: 0px; width: 40px;">
                 <a href="/" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24">
+                        <img src="{{ URL::asset('img/logo.png') }}" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24"> <span
+                        <img src="{{ URL::asset('img/logo.png') }}" alt="" height="24"> <span
                             class="logo-txt"></span>
                     </span>
                 </a>
 
                 <a href="/" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24">
+                        <img src="{{ URL::asset('img/logo.png') }}" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24"> <span
+                        <img src="{{ URL::asset('img/logo.png') }}" alt="" height="24"> <span
                             class="logo-txt"></span>
                     </span>
                 </a>
             </div>
             <div class="navbar-brand">
-                <span class="logo-txt text-white logo-lg">Dashboard Member</span>
+                <span class="logo-txt text-white logo-lg">Dashboard</span>
             </div>
             <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
                 data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
@@ -164,25 +164,22 @@
             </div>
 
             <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item right-bar-toggle me-2">
-                    <i data-feather="settings" class="icon-lg"></i>
-                </button>
-            </div>
-
-            <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end"
                     id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false"> {{-- @if (Auth::user()->avatar != ''){{ URL::asset('images/'. Auth::user()->avatar) }}@else --}}
-                    <img class="rounded-circle header-profile-user" {{-- @endif --}}
-                        src="{{ URL::asset('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
+                    aria-expanded="false">
+                    <img class="rounded-circle header-profile-user"
+                        src="@if (Auth::user()->profile != '') {{ asset(Auth::user()->profile) }} @else {{ URL::asset('assets/images/users/avatar-1.jpg') }} @endif"
+                        alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->first_name }}</span>
-                    {{-- {{ Auth::user()->name }} --}}
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="{{ asset('dashboard/profile') }} "><i
+                    <a class="dropdown-item" href="/dashboard/profile/{{ Auth::user()->username }}/edit"><i
                             class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" href="/dashboard/password/{{ Auth::user()->username }}/edit"><i
+                            class="mdi mdi-account-cog font-size-16 align-middle me-1"></i>
+                        @lang('Change Password')</a>
                     <div class="dropdown-divider"></div>
                     <form id="logout-form" action="/logout" method="POST">
                         @csrf

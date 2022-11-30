@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\JenjangPendidikan;
 use App\Models\JurusanPendidikan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\Province;
@@ -47,8 +50,8 @@ class BioEmployeeController extends Controller
             ]);
         }
         // dd($filter);
-        return redirect('dashboard/member')->with('message','Kamu Sudah Mengisi Data');
-
+        $username = Auth::user()->username;
+        return redirect("dashboard/profile/$username/edit")->with('message','Sukses Update Data');
     }
     public function profile(){
         $datas = BioEmployee::where('user_id', auth()->user()->id);
@@ -170,7 +173,21 @@ class BioEmployeeController extends Controller
      */
     public function edit(BioEmployee $bioEmployee)
     {
-        //
+        $datas = BioEmployee::where('user_id', auth()->user()->id);
+        $filter = json_decode($datas->get('user_id'));
+        if($filter != null) {
+        $biodatas = BioEmployee::with('category')->where('user_id',  auth()->user()->id)->get();
+
+       return view('members.profile',[
+                'bioemployees' => BioEmployee::all(),
+                'users' => User::all(),
+                'jenjangs' => JenjangPendidikan::all(),
+                'jurusans' => JurusanPendidikan::all(),
+                'categorys' => Category::all(),
+                'biodatas' => $biodatas
+       ]);
+    }
+    return redirect('dashboard/personal-information')->with('message','Kamu Harus Mengisi Data Dulu');
     }
 
     /**
@@ -182,9 +199,43 @@ class BioEmployeeController extends Controller
      */
     public function update(Request $request, BioEmployee $bioEmployee)
     {
-        //
-        // JurusanPendidikan::where('id',$jurusanPendidikan->id)->update($validatedData);
-        // return redirect('dashboard/jurusan-pendidikan')->with('message','Success Update Data');
+        $validatedData = $request->validate([
+            'bio' => 'required|max:30',
+            'sampul' => 'image|mimes:jpeg,png,jpg,png,svg|max:2048',
+            'profile' => 'image|mimes:jpeg,png,jpg,png,svg|max:2048'
+        ]);
+
+        // $validatedData['profile'] =  Str::replace('assets/images/profile/','',$request->profile->store('profile'));
+        // if($request->hasFile('image')){
+        //     $request->profile->move(public_path('assets/images/profile/'),time().'.'. $request->profile->getClientOriginalExtension());
+        // }else{
+        //     $path='';
+        // }
+        // $validatedData['sampul'] =  Str::replace('assets/images/sampul/','',$request->sampul->store('sampul'));
+        // if($request->hasFile('image')){
+        //     $request->sampul->move(public_path('assets/images/sampul/'),time().'.'. $request->sampul->getClientOriginalExtension());
+        // }else{
+        //     $path='';
+        // }
+
+
+        if($request->file('sampul') != null){
+            $sampulName = time().$request->file('sampul')->getClientOriginalName();
+            $pathSampul = $request->file('sampul')->storeAs('sampul', $sampulName, 'public');
+            $validatedData['sampul'] =  '/storage/'.$pathSampul;
+        }else{
+            $validatedData['sampul'] = Auth::user()->sampul;
+        }
+        if($request->file('profile') != null ){
+            $profileName = time().$request->file('profile')->getClientOriginalName();
+            $path = $request->file('profile')->storeAs('profile', $profileName, 'public');
+            $validatedData['profile'] = '/storage/'.$path;
+        }else{
+            $validatedData['profile'] = Auth::user()->profile;
+        }
+        User::where('id',auth()->user()->id)->update($validatedData);
+        $username = Auth::user()->username;
+        return redirect("dashboard/profile/$username/edit")->with('message','Sukses Update Data');
     }
 
     /**
