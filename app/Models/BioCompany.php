@@ -21,7 +21,7 @@ class BioCompany extends Model
     public function industry(){
         return $this->belongsTo(Industry::class);
     }
-    public function hari_kerja(){
+    public function hariKerja(){
         return $this->belongsTo(HariKerja::class);
     }
     public function bioCompany()

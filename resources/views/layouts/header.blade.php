@@ -3,14 +3,25 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md fixed-top " style="z-index: 10;">
         <div class="container-fluid">
-            <img class="navbar-brand ms-2" src="../img/logo.png" width="50" height="50">
-            <span class="navbar-brand mb-0 h1 fw-bold " style="color: white" family>JOB SEEKER</span>
+            <a href="/">
+                <img class="navbar-brand ms-2" src="../img/logo.png" width="50" height="50"></a>
+            <span class="navbar-brand mb-0 h1 fw-bold" style="color: white" family>JOB SEEKER</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item dropdown" style="margin-inline-end: 430px">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Cari Lowongan Pekerjaan
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-light" style="border-radius: 0; width: 100%;">
+                            <li><a class="dropdown-item" href="{{ url('lowongan') }}">Semua Lowongan</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }} me-3"
                             href="{{ url('/') }}">Home</a>
@@ -74,11 +85,19 @@
             <div class="w-100" id="navbarCollapse1">
                 <ul class="navbar-nav me-auto mb-md-0">
 
-                    <form class="d-flex m-0 w-100">
-                        <input class="form-control me-2 ms-3" type="search" style="width: 50%;  border-radius: 0; "
-                            placeholder="Cari Berdasarkan Nama Jabatan" aria-label="Search">
-                        <input class="form-control me-1 " style="width: 30%; border-radius: 0;" type="search"
-                            placeholder="Location" aria-label="Search">
+                    <form class="d-flex m-0 w-100" action="cari" method="GET">
+                        <input class="form-control me-2 ms-3" type="search" name="search"
+                            style="width: 50%;  border-radius: 0; " placeholder="Cari Berdasarkan Nama Jabatan"
+                            aria-label="Search">
+                        <select class="form-select me-1" aria-label="Default select example"
+                            style="border-radius: 0; width: 30%;">
+                            <option selected>Kota</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        {{-- <input class="form-control me-1 " style="width: 30%; border-radius: 0;" type="search"
+                            placeholder="Location" aria-label="Search"> --}}
                         <button class="btn btn-primary me-5" style="margin-right: 50px; width:15%;  border-radius: 0;"
                             type="submit"><i class="fa fa-search me-3"></i>Cari</button>
                     </form>

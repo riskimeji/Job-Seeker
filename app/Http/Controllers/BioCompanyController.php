@@ -6,6 +6,7 @@ use App\Models\BioCompany;
 use App\Models\Industry;
 use App\Models\HariKerja;
 use App\Models\User;
+use App\Models\Lowongan;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -96,7 +97,8 @@ class BioCompanyController extends Controller
                 'users' => User::all(),
                 'industrys' => Industry::all(),
                 'harikerjas' => HariKerja::all(),
-                'biodatas' => $biodatas
+                'biodatas' => $biodatas,
+            'lowongans' => Lowongan::latest()->where('user_id',Auth::user()->id)->get()
        ]);
     }
     return redirect('dashboard/company-compleate')->with('message','Kamu Harus Mengisi Data Dulu');
@@ -111,13 +113,26 @@ class BioCompanyController extends Controller
      */
     public function update(Request $request, BioCompany $bioCompany)
     {
+        // $rules = [
+        //     'first_name' => 'required',
+        //     'username' => 'unique:users,username,except,id',
+        //     'sampul' => 'image|mimes:jpeg,png,jpg,png,svg|max:2048',
+        //     'profile' => 'image|mimes:jpeg,png,jpg,png,svg|max:2048'
+        // ];
+        // if($request->get['username'] == Auth::user()->username){
+        //     $rules = Arr::except($rules, ['username']);
+        // }
         $validatedData = $request->validate([
             'first_name' => 'required',
-            'username' => 'required|unique:users,username,except,id',
+            'username' => 'required', //unique:users,username,except,id
             'sampul' => 'image|mimes:jpeg,png,jpg,png,svg|max:2048',
             'profile' => 'image|mimes:jpeg,png,jpg,png,svg|max:2048'
         ]);
-
+        if($validatedData['username'] != Auth::user()->username){
+            $validatedData['username'] = $request->get('username');
+        }else{
+            $validatedData['username'] = Auth::user()->username;
+        }
         if($request->file('sampul') != null){
             $sampulName = time().$request->file('sampul')->getClientOriginalName();
             $pathSampul = $request->file('sampul')->storeAs('sampul', $sampulName, 'public');

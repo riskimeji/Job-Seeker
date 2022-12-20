@@ -33,7 +33,7 @@
                                         class="mdi mdi-office-building ms-4 font-size-18 align-middle pe-2 text-primary"></i>
                                     {{ $biocompanee->industry->name }}<i
                                         class="mdi mdi-calendar-month-outline ms-4 font-size-18 align-middle pe-2 text-primary"></i>
-                                    {{ $biocompanee->hari_kerja->name }}
+                                    {{ $biocompanee->hariKerja->name }}
                                     <i class="mdi mdi-clock ms-4 font-size-18 align-middle pe-2 text-primary"></i>
                                     {{ $biocompanee->jam_kerja_mulai }} AM - {{ $biocompanee->jam_kerja_berakhir }} PM
                                 </p>
@@ -58,6 +58,11 @@
                         {{ session('message') }}
                     </div>
                 @endif
+                @error('username')
+                    <div class="alert alert-danger mt-2" role="alert">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
         </div>
     </div>
@@ -116,11 +121,12 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title mb-0 d-inline">Lowongan Kerja di
                                                 {{ Auth::user()->first_name }}</h5>
-                                            <button class="btn btn-primary d-inline">Tambah Lowongan</button>
+                                            <a href="/dashboard/company/lowongan/create">
+                                                <button class="btn btn-primary d-inline">Tambah Lowongan</button></a>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
+                                        @foreach ($lowongans as $lowongan)
                                             <div class="col-xl-12 col-sm-12">
                                                 <div class="card">
                                                     <div class="card-body">
@@ -131,36 +137,49 @@
                                                                 <i class="bx bx-dots-horizontal-rounded"></i>
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-end">
-                                                                <a class="dropdown-item" href="#">Edit</a>
-                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                <a class="dropdown-item" href="#">Remove</a>
+                                                                <a class="dropdown-item"
+                                                                    href="/dashboard/company/lowongan/{{ $lowongan->slug }}/edit">Edit</a>
+                                                                <a class="" href="#">
+                                                                    <form
+                                                                        action="/dashboard/company/lowongan/{{ $lowongan->id }}"
+                                                                        method="POST">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button class="dropdown-item" type="submit"
+                                                                            onclick="return confirm
+                                                                            ('Yakin akan menghapus data ?')
+">Remove</button>
+                                                                    </form>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                         <div class="d-flex align-items-center">
                                                             <div>
-                                                                <img src="{{ URL::asset('assets/images/users/avatar-2.jpg') }}"
-                                                                    alt=""
+                                                                <img src="{{ $lowongan->media }}" alt=""
                                                                     class="avatar-lg rounded-circle img-thumbnail">
                                                             </div>
                                                             <div class="flex-1 ms-3">
                                                                 <h5 class="font-size-15 mb-1"><a href="#"
-                                                                        class="text-dark">Design and Administration Support
-                                                                        (Contract Base)
+                                                                        class="text-dark">{{ $lowongan->title }}
                                                                     </a></h5>
-                                                                <p class="text-muted mb-0">Lorem ipsum dolor sit amet
-                                                                    consectetur adipisicing elit. Voluptas, id!</p>
+                                                                <p class="text-muted mb-0">{{ $lowongan->fungsi_kerja }}
+                                                                </p>
                                                             </div>
                                                         </div>
                                                         <div class="mt-3 pt-1">
                                                             <p class="text-muted mb-0"><i
                                                                     class=" bx bx-briefcase-alt-2 font-size-15 align-middle pe-2 text-primary"></i>
-                                                                Minimal 2 Tahun</p>
-                                                            <p class="text-muted mb-0 mt-2"><i
+                                                                {{ $lowongan->minimalPengalaman->name }}</p>
+                                                            <p class="mb-0 mt-2" style="color: green;"><i
                                                                     class="bx bx-money font-size-15 align-middle pe-2 text-primary"></i>
-                                                                IDR 5.000.000 - 5.500.000 </p>
+                                                                {{ $lowongan->est_gaji }} </p>
                                                             <p class="text-muted mb-0 mt-2"><i
                                                                     class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>
-                                                                Padang</p>
+                                                                {{ $lowongan->alamat }}</p>
+                                                            <p class=" mb-0 mt-2 badge bg-soft-success text-success">
+                                                                {{ $lowongan->status }}</p>
+                                                            <p class="text-muted mb-0 mt-2">
+                                                                Dibuat: {{ $lowongan->created_at->diffForHumans() }}</p>
                                                         </div>
                                                     </div>
 
@@ -175,165 +194,8 @@
                                                 </div>
                                                 <!-- end card -->
                                             </div>
-                                            <div class="col-xl-12 col-sm-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="dropdown float-end">
-                                                            <a class="text-muted dropdown-toggle font-size-16"
-                                                                href="#" role="button" data-bs-toggle="dropdown"
-                                                                aria-haspopup="true">
-                                                                <i class="bx bx-dots-horizontal-rounded"></i>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                <a class="dropdown-item" href="#">Edit</a>
-                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                <a class="dropdown-item" href="#">Remove</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex align-items-center">
-                                                            <div>
-                                                                <img src="{{ URL::asset('assets/images/users/avatar-2.jpg') }}"
-                                                                    alt=""
-                                                                    class="avatar-lg rounded-circle img-thumbnail">
-                                                            </div>
-                                                            <div class="flex-1 ms-3">
-                                                                <h5 class="font-size-15 mb-1"><a href="#"
-                                                                        class="text-dark">Design and Administration Support
-                                                                        (Contract Base) </a></h5>
-                                                                <p class="text-muted mb-0">Lorem ipsum dolor sit amet
-                                                                    consectetur adipisicing elit. Voluptas, id!</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-3 pt-1">
-                                                            <p class="text-muted mb-0"><i
-                                                                    class=" bx bx-briefcase-alt-2 font-size-15 align-middle pe-2 text-primary"></i>
-                                                                Minimal 2 Tahun</p>
-                                                            <p class="text-muted mb-0 mt-2"><i
-                                                                    class="bx bx-money font-size-15 align-middle pe-2 text-primary"></i>
-                                                                IDR 5.000.000 - 5.500.000 </p>
-                                                            <p class="text-muted mb-0 mt-2"><i
-                                                                    class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>
-                                                                Padang</p>
-                                                        </div>
-                                                    </div>
+                                        @endforeach
 
-                                                    <div class="btn-group" role="group">
-                                                        <button type="button"
-                                                            class="btn btn-outline-light text-truncate"><i
-                                                                class="uil uil-user me-1"></i> Profile</button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-light text-truncate"><i
-                                                                class="uil uil-envelope-alt me-1"></i> Contact</button>
-                                                    </div>
-                                                </div>
-                                                <!-- end card -->
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-12 col-sm-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="dropdown float-end">
-                                                        <a class="text-muted dropdown-toggle font-size-16" href="#"
-                                                            role="button" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true">
-                                                            <i class="bx bx-dots-horizontal-rounded"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Action</a>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div>
-                                                            <img src="{{ URL::asset('assets/images/users/avatar-2.jpg') }}"
-                                                                alt=""
-                                                                class="avatar-lg rounded-circle img-thumbnail">
-                                                        </div>
-                                                        <div class="flex-1 ms-3">
-                                                            <h5 class="font-size-15 mb-1"><a href="#"
-                                                                    class="text-dark">Design and
-                                                                    Administration Support
-                                                                    (Contract Base) </a></h5>
-                                                            <p class="text-muted mb-0">Lorem ipsum dolor sit amet
-                                                                consectetur adipisicing elit. Voluptas, id!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-3 pt-1">
-                                                        <p class="text-muted mb-0"><i
-                                                                class=" bx bx-briefcase-alt-2 font-size-15 align-middle pe-2 text-primary"></i>
-                                                            Minimal 2 Tahun</p>
-                                                        <p class="mb-0 mt-2" style="color: green;"><i
-                                                                class="bx bx-money font-size-15 align-middle pe-2 text-primary"></i>
-                                                            IDR 5.000.000 - 5.500.000 </p>
-                                                        <p class="text-muted mb-0 mt-2"><i
-                                                                class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>
-                                                            Padang</p>
-                                                        <p class="text-muted mb-0 mt-2">
-                                                            Dibuat: 18 November 2022</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-outline-light text-truncate"><i
-                                                            class="uil uil-user me-1"></i> Profile</button>
-                                                    <button type="button" class="btn btn-outline-light text-truncate"><i
-                                                            class="uil uil-envelope-alt me-1"></i> Contact</button>
-                                                </div>
-                                            </div>
-                                            <!-- end card -->
-                                        </div>
-                                        {{-- <div class="col-xl-12 col-sm-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="dropdown float-end">
-                                                        <a class="text-muted dropdown-toggle font-size-16" href="#" role="button"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true">
-                                                            <i class="bx bx-dots-horizontal-rounded"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Action</a>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div>
-                                                            <img src="{{ URL::asset('assets/images/users/avatar-2.jpg') }}" alt=""
-                                                                class="avatar-lg rounded-circle img-thumbnail">
-                                                        </div>
-                                                        <div class="flex-1 ms-3">
-                                                            <h5 class="font-size-15 mb-1"><a href="#" class="text-dark">Design and
-                                                                    Administration Support
-                                                                    (Contract Base) </a></h5>
-                                                            <p class="text-muted mb-0">Lorem ipsum dolor sit amet
-                                                                consectetur adipisicing elit. Voluptas, id!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-3 pt-1">
-                                                        <p class="text-muted mb-0"><i
-                                                                class=" bx bx-briefcase-alt-2 font-size-15 align-middle pe-2 text-primary"></i>
-                                                            Minimal 2 Tahun</p>
-                                                        <p class="mb-0 mt-2" style="color: green;"><i
-                                                                class="bx bx-money font-size-15 align-middle pe-2 text-primary"></i>
-                                                            IDR 5.000.000 - 5.500.000 </p>
-                                                        <p class="text-muted mb-0 mt-2"><i
-                                                                class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>
-                                                            Padang</p>
-                                                        <p class="text-muted mb-0 mt-2">
-                                                            Dibuat: 18 November 2022</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-outline-light text-truncate"><i
-                                                            class="uil uil-user me-1"></i> Profile</button>
-                                                    <button type="button" class="btn btn-outline-light text-truncate"><i
-                                                            class="uil uil-envelope-alt me-1"></i> Contact</button>
-                                                </div>
-                                            </div>
-                                            <!-- end card -->
-                                        </div> --}}
                                     </div>
                                     <!-- end card body -->
                                 </div>

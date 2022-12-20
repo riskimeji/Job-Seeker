@@ -77,7 +77,7 @@
                         <div class="flex-grow-1">
                             <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Lamaran</span>
                             <h4 class="mb-3">
-                                <span class="counter-value" data-target="20">0</span>
+                                <span class="counter-value" data-target="{{ $countlamarans }}">0</span>
                             </h4>
                             {{-- <div class="text-nowrap">
                                 <span class="badge bg-soft-success text-success">+ $2.8k</span>
@@ -102,7 +102,7 @@
                         <div class="flex-grow-1">
                             <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Lowongan</span>
                             <h4 class="mb-3">
-                                <span class="counter-value" data-target="20">0</span>
+                                <span class="counter-value" data-target="{{ $countlowongans }}">0</span>
                             </h4>
                             {{-- <div class="text-nowrap">
                                 <span class="badge bg-soft-success text-success">+5.32%</span>
@@ -127,7 +127,33 @@
                 <div class="card-body">
                     <div class="d-flex flex-wrap align-items-center mb-4">
                         <h5 class="card-title me-2">10 Lamaran Terbaru</h5>
-                        <div class="ms-auto">
+                    </div>
+                    <div class="card-body px-0">
+                        <div class="px-3" data-simplebar style="max-height: 386px;">
+                            @foreach ($lamarans as $lamaran)
+                                <div class="d-flex align-items-center pb-4">
+                                    <div class="avatar-md me-4">
+                                        <img src="@if ($lamaran->user->profile == null) {{ URL::asset('./assets/images/users/avatar-1.jpg') }}
+                                        @else{{ asset($lamaran->user->profile) }} @endif"
+                                            class="img-fluid rounded-circle" alt="">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="font-size-15 mb-1"><a href=""
+                                                class="text-dark">{{ $lamaran->user->first_name }}
+                                                {{ $lamaran->user->last_name }}
+                                            </a></h5>
+                                        <span class="text-muted">Judul: {{ $lamaran->lowongan->title }}</span><br>
+                                        <span class="text-muted">Waktu Melamar:
+                                            {{ $lamaran->created_at->diffForHumans() }}</span><br>
+                                        <span
+                                            class="@if ($lamaran->status == 'PENDING') badge bg-warning text-dark
+                                            @elseif($lamaran->status == 'TERIMA')
+                                            badge bg-success
+                                            @elseif($lamaran->status == 'TOLAK')
+                                            badge bg-danger @endif">{{ $lamaran->status }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
 
@@ -146,6 +172,29 @@
                     <div class="d-flex flex-wrap align-items-center mb-4">
                         <h5 class="card-title me-2">10 Lowongan Terbaru</h5>
                     </div>
+                    <div class="card-body px-0">
+                        <div class="px-3" data-simplebar style="max-height: 386px;">
+                            @foreach ($lowongans as $lowongan)
+                                <div class="d-flex align-items-center pb-4">
+                                    <div class="avatar-md me-4">
+                                        <img src="{{ asset($lowongan->media) }}" class="img-fluid rounded-circle"
+                                            alt="">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="font-size-15 mb-1"><a href=""
+                                                class="text-dark">{{ $lowongan->title }}
+                                            </a></h5>
+                                        <span class="text-muted">Dibuat: {{ $lowongan->created_at }}</span><br>
+                                        <span class="text-muted">Oleh: {{ $lowongan->user->first_name }}
+                                            {{ $lowongan->user->last_name }}</span><br>
+                                        <span
+                                            class="@if ($lowongan->status == 'AKTIF') mt-2 badge bg-soft-success text-success @else
+                                            mt-2 badge bg-soft-danger text-danger @endif">{{ $lowongan->status }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
                 <!-- end card body -->
             </div>
@@ -156,7 +205,7 @@
     <!-- end row-->
 
     <div class="row">
-        <div class="col-xl-6">
+        <div class="col-xl-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">10 User Terakhir</h4>
@@ -167,8 +216,13 @@
                         @foreach ($users as $user)
                             <div class="d-flex align-items-center pb-4">
                                 <div class="avatar-md me-4">
-                                    <img src="{{ URL::asset('./assets/images/users/avatar-2.jpg') }}"
-                                        class="img-fluid rounded-circle" alt="">
+                                    @if ($user->profile != null)
+                                        <img src="{{ URL::asset($user->profile) }}" class="img-fluid rounded-circle"
+                                            alt="">
+                                    @else
+                                        <img src="{{ URL::asset('./assets/images/users/avatar-1.jpg') }}"
+                                            class="img-fluid rounded-circle" alt="">
+                                    @endif
                                 </div>
                                 <div class="flex-grow-1">
                                     <h5 class="font-size-15 mb-1"><a href=""

@@ -15,6 +15,12 @@ class User extends Authenticatable
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function lowongan(){
+        return $this->belongsTo(Lowongan::class);
+    }
+    public function lamaran(){
+        return $this->belongsTo(Lamaran::class);
+    }
 
 
 }

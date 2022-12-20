@@ -14,7 +14,7 @@
             Dashboard
         @endslot
         @slot('title')
-            Jenjang Pendidikan
+            Jenjang Karir
         @endslot
     @endcomponent
     @if (session()->has('message'))
@@ -32,7 +32,7 @@
                             <div>
                                 <h5 class="font-size-14 mb-4">Add
                                     data</h5>
-                                <form method="POST" action="{{ asset('dashboard/jenjang-pendidikan') }}">
+                                <form method="POST" action="{{ url('dashboard/jenjang-karir') }}">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
@@ -40,7 +40,8 @@
                                                 <label class="form-label" for="formrow-password-input">Name</label>
                                                 <input type="text" name="name"
                                                     class="form-control @error('name') is-invalid @enderror"
-                                                    id="formrow-password-input" placeholder="Masukan Nama Jenjang" required>
+                                                    id="formrow-password-input" placeholder="Masukan Nama Jenjang Karir"
+                                                    required>
                                                 @error('name')
                                                     {{ $message }}
                                                 @enderror

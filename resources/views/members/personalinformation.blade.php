@@ -119,7 +119,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Provinsi</label>
                                                 @php
-                                                    $provinces = new App\Http\Controllers\BioEmployeeController();
+                                                    $provinces = new App\Http\Controllers\PersonalInfoController();
                                                     $provinces = $provinces->provinces();
                                                 @endphp
                                                 <select class="form-select" name="province_id" id="provinsi" required>

@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="apps-chat">
+                    <a href="/dashboard/company/lamaran">
                         <i data-feather="mail"></i>
                         <span data-key="t-chat">Lamaran</span>
                     </a>
@@ -37,8 +37,9 @@
                         <span data-key="t-email">Lowongan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="apps-email-inbox" data-key="t-inbox">@lang('Data Lownogan')</a></li>
-                        <li><a href="apps-email-read" data-key="t-read-email">@lang('Tambah Lowongan')</a></li>
+                        <li><a href="/dashboard/company/lowongan" data-key="t-inbox">@lang('Data Lownogan')</a></li>
+                        <li><a href="/dashboard/company/lowongan/create" data-key="t-read-email">@lang('Tambah Lowongan')</a>
+                        </li>
                     </ul>
                 </li>
 

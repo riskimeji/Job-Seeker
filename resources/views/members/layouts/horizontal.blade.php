@@ -243,8 +243,7 @@
                             </div>
 
 
-                            <a href="apps-calendar " class="dropdown-item"
-                                data-key="t-calendar">@lang('Semua Lowongan')</a>
+                            <a href="/lowongan " class="dropdown-item" data-key="t-calendar">@lang('Semua Lowongan')</a>
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">

@@ -34,83 +34,32 @@
     {{-- Card Lowngan Kerja Terbaru --}}
     <section data-aos="fade-up">
         <div class="row gap-4 justify-content-center" style="margin-right: 0px; margin-left:0px;">
-            <div class="box lokercard">
-                <div name="logo" class="flex mt-2">
-                    <img src="https://png.pngtree.com/png-vector/20211030/ourlarge/pngtree-company-logo-design-png-image_4016509.png"
-                        style="width:100px; height:100px;" alt="logo_perusahaan">
+            @foreach ($lowongans as $lowongan)
+                <div class="box lokercard">
+                    <div name="logo" class="flex mt-2">
+                        <a href="/detail/{{ $lowongan->slug }}">
+                            <img src="{{ $lowongan->media }}" style="width:100px; height:100px;" alt="logo_perusahaan"></a>
+                    </div>
+                    <hr>
+                    <div class="ms-3">
+                        <label for="" class="mt-1" style="color:grey">{{ $lowongan->user->first_name }}
+                            {{ $lowongan->user->last_name }}</label><br>
+                        <a href="/detail/{{ $lowongan->slug }}">
+                            <label for="" class="" style="font-size:18px; font-weight: bold; color:#3D42A4;">
+                                {{ $lowongan->title }}</label><br></a>
+                        <label for="" class="mt-2"><i
+                                class="fas fa-map-marker-alt me-1"></i>{{ $lowongan->alamat }}
+                        </label>
+                        <label for="" class="mt-3" style="color:red; font-weight: bold; font-size: 15px;">
+                            {{ $lowongan->est_gaji }}</label>
+                    </div>
+                    {{-- <div class="text-center mt-3">
+                        <a href="/detail/{{ $lowongan->slug }}" class="btn btn-free">Details</a>
+                    </div> --}}
                 </div>
-                <hr>
-                <div class="ms-3">
-                    <label for="" class="mt-1" style="color:grey">PT. AHMAD RIZKI</label><br>
-                    <label for="" class="" style="font-size:18px; font-weight: bold; color:#3D42A4;">Staff
-                        IT</label><br>
-                    <label for="" class="mt-2"><i class="fas fa-map-marker-alt"></i> Padang</label>
-                    <label for="" class="mt-3" style="color:red; font-weight: bold; font-size: 15px;">
-                        IDR Rp 3.000.000 - 6.000.000</label>
-                </div>
-
-                <div class="text-center mt-3">
-                    <a href="" class="btn btn-free">Details</a>
-                </div>
-            </div>
-            <div class=" box lokercard">
-                <div name="logo" class="flex mt-2">
-                    <img src="https://png.pngtree.com/png-vector/20211030/ourlarge/pngtree-company-logo-design-png-image_4016509.png"
-                        style="width:100px; height:100px;" alt="logo_perusahaan">
-                </div>
-                <hr>
-                <div class="ms-3">
-                    <label for="" class="mt-1" style="color:grey">PT. AHMAD RIZKI</label><br>
-                    <label for="" class="" style="font-size:18px; font-weight: bold; color:#3D42A4;">Staff
-                        IT</label><br>
-                    <label for="" class=" mt-2"><i class="fas fa-map-marker-alt"></i> Padang</label>
-                    <label for="" class=" mt-3" style="color:red; font-weight: bold; font-size: 15px;">
-                        IDR Rp 3.000.000 - 6.000.000</label>
-                </div>
-
-                <div class="text-center mt-3">
-                    <a href="" class="btn btn-free">Details</a>
-                </div>
-            </div>
-            <div class=" box lokercard">
-                <div name="logo" class="flex mt-2">
-                    <img src="https://png.pngtree.com/png-vector/20211030/ourlarge/pngtree-company-logo-design-png-image_4016509.png"
-                        style="width:100px; height:100px;" alt="logo_perusahaan">
-                </div>
-                <hr>
-                <div class="ms-3">
-                    <label for="" class="mt-1" style="color:grey">PT. AHMAD RIZKI</label><br>
-                    <label for="" class="" style="font-size:18px; font-weight: bold; color:#3D42A4;">Staff
-                        IT</label><br>
-                    <label for="" class=" mt-2"><i class="fas fa-map-marker-alt"></i> Padang</label>
-                    <label for="" class=" mt-3" style="color:red; font-weight: bold; font-size: 15px;">
-                        IDR Rp 3.000.000 - 6.000.000</label>
-                </div>
-
-                <div class="text-center mt-3">
-                    <a href="" class="btn btn-free">Details</a>
-                </div>
-            </div>
-            <div class=" box lokercard">
-                <div name="logo" class="flex mt-2">
-                    <img src="https://png.pngtree.com/png-vector/20211030/ourlarge/pngtree-company-logo-design-png-image_4016509.png"
-                        style="width:100px; height:100px;" alt="logo_perusahaan">
-                </div>
-                <hr>
-                <div class="ms-3">
-                    <label for="" class="mt-1" style="color:grey">PT. AHMAD RIZKI</label><br>
-                    <label for="" class="" style="font-size:18px; font-weight: bold; color:#3D42A4;">Staff
-                        IT</label><br>
-                    <label for="" class=" mt-2"><i class="fas fa-map-marker-alt"></i> Padang</label>
-                    <label for="" class=" mt-3" style="color:red; font-weight: bold; font-size: 15px;">
-                        IDR Rp 3.000.000 - 6.000.000</label>
-                </div>
-                <div class="text-center mt-3">
-                    <a href="" class="btn btn-free">Details</a>
-                </div>
-            </div>
+            @endforeach
             <div class="text-center mt-3">
-                <a href="#" class="btn btn-free" style="">Lihat Lowongan Lebih Banyak</a>
+                <a href="/lowongan" class="btn btn-free" style="">Lihat Lowongan Lebih Banyak</a>
             </div>
         </div>
     </section>
@@ -147,82 +96,15 @@
             <h5>Lihat lowongan bedasarkan industri</h5>
             <div class="mt-4">
                 <div class="row flex" style="margin-left: 0px; margin-right: 0px;">
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div class="">
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
+                    @foreach ($categorys as $item)
+                        <div class="border test" style="width:400px; height:50px;">
+                            <div class="">
+                                <label for="" class="ms-3"
+                                    style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
+                                        class="fas fa-calculator me-2"></i>{{ $item->name }}</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div>
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div>
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row flex" style="margin-left: 0px; margin-right: 0px;">
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div class="">
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div>
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div>
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row flex" style="margin-left: 0px; margin-right: 0px;">
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div class="">
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div>
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
-                    <div class="border test" style="width:400px; height:50px;">
-                        <div>
-                            <label for="" class="ms-3"
-                                style="font-weight: bold; margin-top:13px; color:rgb(85, 79, 79);"><i
-                                    class="fas fa-calculator me-2"></i>Perdagangan Umum</label><label for=""
-                                style="color: rgb(189, 180, 180)" class="ms-2">(25 Lowongan)</label>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

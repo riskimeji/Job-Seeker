@@ -58,15 +58,7 @@ class BioEmployeeController extends Controller
         // $filter = $datas->get('user_id');
         $filter = json_decode($datas->get('user_id'));
         if($filter != null) {
-
-
-        // $datas = BioEmployee::where('user_id', auth()->user()->id);
-        // $filter = json_decode($datas->get('user_id'));
-        // $biodatas = DB::table('bio_employees')->where('user_id',  auth()->user()->id)->get();
         $biodatas = BioEmployee::with('category')->where('user_id',  auth()->user()->id)->get();
-        // $test = $biodatas;
-        // $test = $biodatas->category->name;
-        // $dataku = DB::select("SELECT * from bio_employees where user_id =  ");
        return view('members.profile',[
                 'bioemployees' => BioEmployee::all(),
                 'users' => User::all(),
@@ -77,7 +69,6 @@ class BioEmployeeController extends Controller
        ]);
     }
     return redirect('dashboard/personal-information')->with('message','Kamu Harus Mengisi Data Dulu');
-    //    dd($test);
     }
 
     public function editAccount()
@@ -94,12 +85,7 @@ class BioEmployeeController extends Controller
             'last_name' =>'required',
             'email' =>'required|unique:users,email,except,id',
             'phone_number'=>'required|max:13|min:12|unique:users,phone_number,except,id'
-            // 'password'=>'min:6|required_with:password_confirmation|same:password_confirmation',
-            // 'password_confirmation'=>'min:6'
         ]);
-        // $validatedData['password'] =  Hash::make($request->password);
-        // $validatedData['password_confirmation'] = Hash::make($request->password);
-        // $validatedData['role'] = 'EMPLOYEE';
         User::where('id',$user->id)->update($validatedData);
         return redirect('dashboard/member/profile')->with('message','Sukses Update Data');
     }
@@ -111,14 +97,7 @@ class BioEmployeeController extends Controller
      */
     public function create()
     {
-        // // $provinces = Province::pluck('name', 'id');
-        // // return view('members.personalinformation',[
-        // //     'bioemployees' => BioEmployee::all(),
-        // //     'users' => User::all(),
-        // //     'jenjangs' => JenjangPendidikan::all(),
-        // //     'jurusans' => JurusanPendidikan::all(),
-        // //     'categorys' => Category::all(),
-        // ]);
+        //
     }
 
     /**

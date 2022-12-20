@@ -52,50 +52,59 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Nama Perusahaan</th>
-                                    <th scope="col">Posisi</th>
+                                    <th scope="col">Nama Lowongan</th>
+                                    <th scope="col">Tanggal Melamar</th>
                                     <th scope="col">Status</th>
                                     <th style="width: 80px; min-width: 80px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($users as $user) --}}
-                                <tr>
-                                    <td>1</td>
-                                    {{-- <td>
-                                        <img src="{{ URL::asset('assets/images/users/avatar-2.jpg') }}" alt=""
-                                            class="avatar-sm rounded-circle me-2">
-                                        <a href="#" class="text-body">{{ $user->first_name }}
-                                            {{ $user->last_name }}</a>
-                                    </td> --}}
-                                    <td>PT. Ahmad Rizki</td>
-                                    <td>Staff IT</td>
-                                    <td><a href="#"
-                                            class="badge bg-soft-success text-success font-size-11">Diterima</a></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button
-                                                class="btn btn-link font-size-16 shadow-none py-0 text-muted dropdown-toggle"
-                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bx bx-dots-horizontal-rounded"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                {{-- <li><a class="dropdown-item" href="#">Delete</a></li> --}}
-                                                <li>
-                                                    <form action="/dashboard/user/" method="POST" class="d-inline">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit"
-                                                            onclick="return confirm
+                                @foreach ($lamarans as $lamar)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            {{-- <img class="avatar-sm rounded-circle me-2" --}}
+                                            {{-- src="@if ($lamar->lowongan->user->profile != '') {{ $lamar->lowngan->user->profile }} @else {{ URL::asset('assets/images/users/avatar-1.jpg') }} @endif"> --}}
+                                            {{ $lamar->lowongan->user->first_name }} {{ $lamar->lowongan->user->last_name }}
+                                        </td>
+                                        <td>
+
+                                            <img class="avatar-sm rounded-circle me-2" src="{{ $lamar->lowongan->media }}">
+                                            {{ $lamar->lowongan->title }}
+                                        </td>
+                                        <td>
+                                            {{ $lamar->created_at->diffForHumans() }}
+                                        </td>
+                                        <td><span
+                                                class="@if ($lamar->status == 'PENDING') badge bg-warning text-dark
+                                    @elseif($lamar->status == 'TERIMA')
+                                    badge bg-success
+                                    @elseif($lamar->status == 'TOLAK')
+                                    badge bg-danger @endif">{{ $lamar->status }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-link font-size-16 shadow-none py-0 text-muted dropdown-toggle"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bx bx-dots-horizontal-rounded"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <form action="/dashboard/user/" method="POST" class="d-inline">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="dropdown-item" type="submit"
+                                                                onclick="return confirm
                                                                 ('Yakin akan menghapus data ?')
 ">Delete</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {{-- @endforeach --}}
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserEmployee;
 use App\Models\User;
+use App\Models\Lamaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,9 @@ class UserEmployeeController extends Controller
         return view('signin.employee');
     }
     public function dashboardmember(){
-        return view('members.index');
+        return view('members.index',[
+            'lamarans' => Lamaran::latest()->where('user_id',Auth::user()->id)->paginate(10)
+        ]);
     }
     public function authenticate(Request $request){
         $cridentials = $request->validate([

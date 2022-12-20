@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lamaran;
+use App\Models\Lowongan;
 use Illuminate\Http\Request;
 
 class LamaranController extends Controller
@@ -10,11 +11,15 @@ class LamaranController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Lowongan $lowongan)
     {
-        //
+        return view('admins.lamaran.lamaran',[
+            'lamarans' => Lamaran::latest()->paginate(10),
+            'datas' => Lamaran::count()
+        ]);
     }
 
     /**
@@ -57,8 +62,11 @@ class LamaranController extends Controller
      */
     public function edit(Lamaran $lamaran)
     {
-        //
+        return view('admins.lamaran.edit',[
+            'lamarans' => Lamaran::find($lamaran->id)
+          ]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +77,11 @@ class LamaranController extends Controller
      */
     public function update(Request $request, Lamaran $lamaran)
     {
-        //
+        $validatedData = $request->validate([
+            'status' =>'required'
+        ]);
+        Lamaran::where('id',$lamaran->id)->update($validatedData);
+        return redirect('dashboard/lamaran')->with('message','Success Update Data');
     }
 
     /**
@@ -80,6 +92,7 @@ class LamaranController extends Controller
      */
     public function destroy(Lamaran $lamaran)
     {
-        //
+        Lamaran::destroy($lamaran->id);
+        return redirect('/dashboard/lamaran')->with('message','Success Delete Data');
     }
 }

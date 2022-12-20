@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\UserAdmin;
 use App\Models\User;
+use App\Models\Lowongan;
 use App\Models\Industry;
+use App\Models\Lamaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +30,11 @@ class UserAdminController extends Controller
         return view('admins.index',[
             'users'=>User::first()->paginate(7),
             'datas'=>User::count(),
-            'countindustry'=>Industry::count()
+            'countindustry'=>Industry::count(),
+            'countlowongans' => Lowongan::count(),
+            'lowongans' => Lowongan::all(),
+            'countlamarans' => Lamaran::count(),
+            'lamarans' => Lamaran::all(),
         ]);
     }
     public function authenticate(Request $request){
