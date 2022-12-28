@@ -18,6 +18,8 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CityDashboardController;
 use App\Http\Controllers\VillageDashboardController;
 use App\Http\Controllers\LowonganCompanyController;
+use App\Http\Controllers\EmployeeProfile;
+use App\Http\Controllers\CompanyProfile;
 use App\Http\Controllers\JenjangPendidikanController;
 use App\Http\Controllers\DistrictDashboardController;
 use App\Http\Controllers\JurusanPendidikanController;
@@ -61,6 +63,18 @@ Route::post('/ajukan/{lowongan}', [Controller::class,'ajukan'])->name('ajukan');
 Route::resource('/detail', LowonganController::class)->parameters([
     'detail' => 'lowongan:slug'
 ]);
+
+Route::resource('/profile', EmployeeProfile::class)->parameters([
+    'profile' => 'user:username'
+]);
+Route::resource('/user', CompanyProfile::class)->parameters([
+    'user' => 'user:username'
+]);
+
+Route::get('contoh', function () {
+    return view('ex');
+});
+
 Route::get('about', function () {
     return view('about');
 });
@@ -77,6 +91,10 @@ Route::get('test', function(){
 Route::get('contact', function(){
     return view('contact');
 });
+
+// Route::get('profile', function(){
+//     return view('profile');
+// });
 
 Route::get('try', function(){
     return view('test');
@@ -102,19 +120,13 @@ Route::middleware(['auth', 'role:ADMIN'])->group(function () {
 
     Route::resource('/dashboard/district', DistrictDashboardController::class);
 
-    // Route::resource('/dashboard/lamaran', LowonganController::class)->parameters([
-    //     'dashboard.lowongan' => 'lowongan:slug'
-    // ]);
+
 
     Route::resource('/dashboard/jenjang-pendidikan', JenjangPendidikanController::class);
     Route::resource('/dashboard/jurusan-pendidikan', JurusanPendidikanController::class);
     Route::resource('/dashboard/jenjang-karir', JenjangKarirController::class);
     Route::resource('/dashboard/minimal-pengalaman', MinimalPengalamanController::class);
-    // Route::resource('/dashboard/test', Testing::class);
-    // Route::get('provinces', [Testing::class,'provinces'])->name('provinces');
-    // Route::get('cities', [Testing::class,'cities'])->name('cities');
-    // Route::get('districts', [Testing::class,'districts'])->name('districts');
-    // Route::get('villages', [Testing::class,'villages'])->name('villages');
+
 
     //search lowongan di halaman admin
     Route::get('dashboard/search', [LowonganController::class,'search'])->name('search');
@@ -132,10 +144,6 @@ Route::middleware(['auth', 'role:EMPLOYEE'])->group(function () {
     Route::resource('/dashboard/edit-jobexperience', EditJobController::class);
     Route::resource('/dashboard/edit-address', EditAddressController::class);
     Route::resource('/dashboard/personal-information', PersonalInfoController::class);
-    Route::get('provinces', [PersonalInfoController::class,'provinces'])->name('provinces');
-    Route::get('cities', [PersonalInfoController::class,'cities'])->name('cities');
-    Route::get('districts', [PersonalInfoController::class,'districts'])->name('districts');
-    Route::get('villages', [PersonalInfoController::class,'villages'])->name('villages');
     Route::post('/dashboard/personal-information', [PersonalInfoController::class,'store'])->name('personal-information.store');
 
 
@@ -150,10 +158,7 @@ Route::middleware(['auth', 'role:COMPANY'])->group(function () {
     Route::resource('/dashboard/company/lamaran', LamaranCompanyController::class);
     Route::resource('/dashboard/company-compleate', CompanyInformationController::class);
     Route::resource('/dashboard/company/lowongan', LowonganCompanyController::class);
-    Route::get('provinces', [CompanyInformationController::class,'provinces'])->name('provinces');
-    Route::get('cities', [CompanyInformationController::class,'cities'])->name('cities');
-    Route::get('districts', [CompanyInformationController::class,'districts'])->name('districts');
-    Route::get('villages', [CompanyInformationController::class,'villages'])->name('villages');
+
     Route::post('/dashboard/company-compleate', [CompanyInformationController::class,'store'])->name('company-compleate.store');
 
     Route::get('dashboard/company/search', [LowonganCompanyController::class,'search'])->name('search');
@@ -162,7 +167,10 @@ Route::middleware(['auth', 'role:COMPANY'])->group(function () {
     //semua route dalam grup ini hanya bisa diakses oleh COMPANY
 });
 
-
+Route::get('provinces', [CompanyInformationController::class,'provinces'])->name('provinces');
+    Route::get('cities', [CompanyInformationController::class,'cities'])->name('cities');
+    Route::get('districts', [CompanyInformationController::class,'districts'])->name('districts');
+    Route::get('villages', [CompanyInformationController::class,'villages'])->name('villages');
 Route::resource('/dashboard/password', EditCompanyInformationController::class);
 Route::get('signin', [Controller::class, 'login'])->name('login')->middleware('guest');
 Route::post('logout', [UserAdminController::class,'logout']);

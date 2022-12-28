@@ -56,7 +56,8 @@
                                         <td>
                                             <img src="@if ($lamaran->user->profile != '') {{ $lamaran->user->profile }} @else {{ URL::asset('assets/images/users/avatar-1.jpg') }} @endif"
                                                 alt="" class="avatar-sm rounded-circle me-2">
-                                            <a href="#" class="text-body">{{ $lamaran->user->first_name }}
+                                            <a href="/profile/{{ $lamaran->user->username }}"
+                                                class="text-body">{{ $lamaran->user->first_name }}
                                                 {{ $lamaran->user->last_name }}</a>
                                         </td>
                                         <td>{{ $lamaran->lowongan->title }}</td>

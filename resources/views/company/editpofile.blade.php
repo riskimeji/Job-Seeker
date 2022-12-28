@@ -109,7 +109,6 @@
                                                         @foreach ($provinces as $item)
                                                             {{-- <option value="{{ $item->id ?? '' }}">{{ $item->name ?? '' }}
                                                             </option> --}}
-
                                                             @if (old('province_id', $biocompanee->province_id) == $item->id)
                                                                 <option value="{{ $item->id }}" selected="selected">
                                                                     {{ $item->name }}</option>

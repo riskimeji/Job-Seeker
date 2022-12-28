@@ -12,7 +12,9 @@
             <div class="col-md-9">
                 <div class="card-body">
                     <h5 class="card-title" style="font-weight: bold;">{{ $lowongan->title }}</h5>
-                    <p>{{ $lowongan->user->first_name }} {{ $lowongan->user->last_name }}</p>
+                    <a href="/user/{{ $lowongan->user->username }}">
+                        <p>{{ $lowongan->user->first_name }} {{ $lowongan->user->last_name }}</p>
+                    </a>
                     <p class="text-muted font-size-13 text-white"><i class="fas fa-map-marker-alt"></i>
                         {{ $lowongan->alamat }}
                         <i class="fas fa-building ms-4"></i>
@@ -84,18 +86,18 @@
         <a href="{{ $lowongan->google_map }}">{{ $lowongan->alamat }}</a>
         @auth
             @if (auth()->user()->role === 'ADMIN' || auth()->user()->role === 'COMPANY')
-            @elseif($lamaran == null)
-            @else
+            @elseif($lamaran->isNotEmpty())
                 <div class="d-flex justify-content-center mt-2">
                     <form action="{{ route('ajukan', $lowongan) }}" method="POST">
                         @csrf
                         <button class="btn btn-primary" style="border-radius: 0%" type="submit" name="submit"
                             onclick="return confirm
-        ('Yakin ingin melamar ?')
+    ('Yakin ingin melamar ?')
 ">Ajukan
                             Lamaran</button>
                     </form>
                 </div>
+            @else
             @endif
         @endauth
 

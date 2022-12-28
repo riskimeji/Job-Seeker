@@ -15,9 +15,6 @@ class Lamaran extends Model
     public function lowongan(){
         return $this->belongsTo(Lowongan::class);
     }
-    public function lamaran(){
-        return $this->belongsTo(Lamaran::class);
-    }
     // public function getRouteKeyName(): string
     // {
     // return 'slug';

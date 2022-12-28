@@ -33,9 +33,5 @@ public function village(){
 public function district(){
     return $this->belongsTo('Laravolt\Indonesia\Models\District');
 }
-public function bioEmployee()
-{
-    return $this->belongsTo(BioEmployee::class);
-}
 
 }

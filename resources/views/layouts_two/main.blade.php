@@ -10,6 +10,7 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}"> --}}
     <link rel="shortcut icon" href="{{ URL::asset('img/logo.png') }}">
     <link rel="stylesheet" href="{{ asset('aos/aos.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
@@ -22,7 +23,7 @@
 
 <body class="d-flex flex-column h-100">
 
-    @include('layouts.header')
+    @include('layouts_two.header')
 
     <!-- Begin page content -->
     <main class="flex-shrink-0">

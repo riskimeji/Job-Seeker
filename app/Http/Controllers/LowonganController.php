@@ -127,12 +127,12 @@ class LowonganController extends Controller
                 'lowongan' => $lowongan
             ]);
         }else{
-            $datas = Lamaran::where('user_id', auth()->user()->id);
-            $filter = json_decode($datas->get('user_id'));
+            // $datas = Lamaran::where('user_id', auth()->user()->id);
+            // $filter = json_decode($datas->get('user_id'));
+            $datas = Lamaran::where([['user_id','=',Auth::user()->id],['lowongan_id','!=',$lowongan->id]])->get();
             return view('detaillowongan', [
                 'lowongan' => $lowongan,
-                'data' => $filter,
-                'lamaran' => $filters
+                'lamaran' => $datas
                 ]);
         }
         // return view('detaillowongan', compact('lowongan'));

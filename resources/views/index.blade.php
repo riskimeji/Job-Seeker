@@ -37,13 +37,19 @@
             @foreach ($lowongans as $lowongan)
                 <div class="box lokercard">
                     <div name="logo" class="flex mt-2">
-                        <a href="/detail/{{ $lowongan->slug }}">
+                        <a href="/detail/{{ $lowongan->slug }}" class="btn">
                             <img src="{{ $lowongan->media }}" style="width:100px; height:100px;" alt="logo_perusahaan"></a>
                     </div>
                     <hr>
                     <div class="ms-3">
-                        <label for="" class="mt-1" style="color:grey">{{ $lowongan->user->first_name }}
-                            {{ $lowongan->user->last_name }}</label><br>
+
+                        <a
+                            @if ($lowongan->user->username == 'admin') href=""
+                            @else
+                            href="/user/{{ $lowongan->user->username }}" @endif>
+                            <label for="" class="mt-1" style="color:grey">{{ $lowongan->user->first_name }}
+                                {{ $lowongan->user->last_name }}</label><br>
+                        </a>
                         <a href="/detail/{{ $lowongan->slug }}">
                             <label for="" class="" style="font-size:18px; font-weight: bold; color:#3D42A4;">
                                 {{ $lowongan->title }}</label><br></a>

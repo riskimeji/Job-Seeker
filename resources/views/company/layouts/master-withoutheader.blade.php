@@ -16,7 +16,6 @@
     @include('members.layouts.body')
 @show
 
-<!-- Begin page -->
 <div id="layout-wrapper">
 
     <body data-layout="horizontal">

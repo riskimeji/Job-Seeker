@@ -219,20 +219,16 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0 d-inline">Kontak Perusahaan</h5>
-                        {{-- <a href="#">
-                            <button class="btn btn-primary d-inline">
-                                Ubah Data</button></a> --}}
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table align-middle">
                             <tbody>
-                                {{-- @foreach ($biodatas as $item) --}}
                                 <tr>
                                     <td>
                                         <div style="color: gray;">Email:</div>
-                                        {{-- {{ $item->province->name }} --}}{{ $biocompanee->email_perusahaan }}
+                                        {{ $biocompanee->email_perusahaan }}
                                     </td>
 
                                 </tr>
@@ -240,7 +236,6 @@
                                     <td>
                                         <div style="color: gray;">Nomor Handpone:</div>
                                         {{ $biocompanee->phone_perusahaan }}
-                                        {{-- {{ $item->city->name }} --}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -251,14 +246,12 @@
                                             </div>
                                         </a>
                                         {{ $biocompanee->alamat }}
-                                        {{-- {{ $item->district->name }} --}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div style="color: gray;">Website:</div>
                                         <a href="www.google.com">{{ $biocompanee->website }}</a>
-                                        {{-- {{ $item->village->name }} --}}
                                     </td>
                                 </tr>
                             </tbody>

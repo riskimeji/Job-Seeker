@@ -28,7 +28,7 @@ class Controller extends BaseController
             $searchLowongans = Lowongan::where('title','LIKE','%'.$request->search.'%')->latest()->paginate(15);
             return view('carilowngan', compact('searchLowongans'));
         }elseif ($request->search == null) {
-            return redirect('cari');
+            return redirect('/');
         }
     }
     public function pagelowongan(){

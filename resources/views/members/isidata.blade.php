@@ -119,7 +119,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Provinsi</label>
                                                 @php
-                                                    $provinces = new App\Http\Controllers\CompanyInformationController();
+                                                    $provinces = new App\Http\Controllers\BioEmployeeController();
                                                     $provinces = $provinces->provinces();
                                                 @endphp
                                                 <select class="form-select" name="province_id" id="provinsi" required>
@@ -398,10 +398,6 @@
             })
         });
     </script>
-    <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/@simonwep/@simonwep.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/twitter-bootstrap-wizard/twitter-bootstrap-wizard.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/form-wizard.init.js') }}"></script>
-    <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 @endsection

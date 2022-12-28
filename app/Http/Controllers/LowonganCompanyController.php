@@ -33,10 +33,17 @@ class LowonganCompanyController extends Controller
     {
         $data = Lowongan::all()->where('user_id',Auth::user()->id);
         $count = $data->count();
-        return view('company.lowongan.lowongan',[
-            'counts' =>$count,
-            'lowongans' => Lowongan::latest()->where('user_id',Auth::user()->id)->paginate(10)
-        ]);
+        $datas = BioCompany::where('user_id', auth()->user()->id);
+        $filter = json_decode($datas->get('user_id'));
+        if($filter == null){
+            return redirect('dashboard/company-compleate')->with('message','Kamu Harus Mengisi Data Dulu');
+        }else{
+            return view('company.lowongan.lowongan',[
+                'counts' =>$count,
+                'lowongans' => Lowongan::latest()->where('user_id',Auth::user()->id)->paginate(10)
+            ]);
+        }
+
     }
     public function search(Request $request){
         if($request->search){
@@ -54,17 +61,24 @@ class LowonganCompanyController extends Controller
      */
     public function create()
     {
+
         $provinces = Province::pluck('name', 'id');
-        return view('company.lowongan.create',[
-            'users' => User::all(),
-            'provinces' => Province::all(),
-            'jenjangpendidikans' => JenjangPendidikan::all(),
-            'jurusanpendidikans' => JurusanPendidikan::all(),
-            'categorys' => Category::all(),
-            'jenjangkarirs' => JenjangKarir::all(),
-            'minimalpengalamans' => MinimalPengalaman::all(),
-            'provinces' => $provinces,
-        ]);
+        $datas = BioCompany::where('user_id', auth()->user()->id);
+        $filter = json_decode($datas->get('user_id'));
+        if($filter == null){
+            return redirect('dashboard/company-compleate')->with('message','Kamu Harus Mengisi Data Dulu');
+        }else{
+            return view('company.lowongan.create',[
+                'users' => User::all(),
+                'provinces' => Province::all(),
+                'jenjangpendidikans' => JenjangPendidikan::all(),
+                'jurusanpendidikans' => JurusanPendidikan::all(),
+                'categorys' => Category::all(),
+                'jenjangkarirs' => JenjangKarir::all(),
+                'minimalpengalamans' => MinimalPengalaman::all(),
+                'provinces' => $provinces,
+            ]);
+        }
     }
 
     /**

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lamaran;
-use App\Models\Lowongan;
+use App\Models\BioCompany;
 use App\Models\User;
+use App\Models\Lowongan;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
-class LamaranCompanyController extends Controller
+class CompanyProfile extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +18,7 @@ class LamaranCompanyController extends Controller
      */
     public function index()
     {
-
-        $user = User::find(Auth::user()->id);
-        $test = $user->lowongans;
-        return view('company.lamaran.lamaran',[
-            'lamarans' => $test,
-            'datas' => Lamaran::count(),
-        ]);
-
+        //
     }
 
     /**
@@ -51,52 +45,48 @@ class LamaranCompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Lamaran  $lamaran
+     * @param  \App\Models\BioCompany  $bioCompany
      * @return \Illuminate\Http\Response
      */
-    public function show(Lamaran $lamaran)
+    public function show(BioCompany $bioCompany, User $user)
     {
-        //
+        return view('company.userprofile', [
+            'users' => $user,
+            'lowongans' => Lowongan::latest()->where('user_id',Auth::user()->id)->get()
+            ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Lamaran  $lamaran
+     * @param  \App\Models\BioCompany  $bioCompany
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lamaran $lamaran)
+    public function edit(BioCompany $bioCompany)
     {
-         return view('company.lamaran.edit',[
-            'lamarans' => Lamaran::find($lamaran->id)
-          ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Lamaran  $lamaran
+     * @param  \App\Models\BioCompany  $bioCompany
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lamaran $lamaran)
+    public function update(Request $request, BioCompany $bioCompany)
     {
-        $validatedData = $request->validate([
-            'status' =>'required'
-        ]);
-        Lamaran::where('id',$lamaran->id)->update($validatedData);
-        return redirect('dashboard/company/lamaran')->with('message','Success Update Data');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Lamaran  $lamaran
+     * @param  \App\Models\BioCompany  $bioCompany
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lamaran $lamaran)
+    public function destroy(BioCompany $bioCompany)
     {
-        Lamaran::destroy($lamaran->id);
-        return redirect('/dashboard/company/lamaran')->with('message','Success Delete Data');
+        //
     }
 }

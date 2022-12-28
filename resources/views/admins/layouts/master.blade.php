@@ -15,7 +15,6 @@
 @section('body')
     @include('admins.layouts.body')
 @show
-<!-- Begin page -->
 <div id="layout-wrapper">
     @include('admins.layouts.topbar')
     @include('admins.layouts.sidebar')

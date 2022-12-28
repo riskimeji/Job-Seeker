@@ -291,6 +291,15 @@ nav {
     background: white;
 }
 
+.map-show {
+    background-image: url("../assets/images/map.png");
+    width: 220px;
+    height: 136px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-size: cover
+}
+
 .map-show:hover {
     background-image: url('../assets/images/map_hover.png');
 }
